@@ -1,0 +1,1014 @@
+﻿<div class="container">
+  <div class="row">
+    <span *ngIf="APPerformanceFlag">
+      <form [formGroup]="registrationFormApp" (ngSubmit)="onSubmitApp()">
+        <div class="col-sm-12">
+          <div class="form-group">
+            <p class="mar0">
+              <strong>Rate our feedback app: </strong>
+            </p>
+            <div class="star-rating">
+              <fieldset>
+                <input
+                  type="radio"
+                  id="rating1"
+                  formControlName="rating"
+                  value="1"
+                />
+                <img src="../assets/images/poor.svg" />
+                <label for="rating1">Poor</label>
+                <input
+                  type="radio"
+                  id="rating2"
+                  formControlName="rating"
+                  value="2"
+                /><img src="../assets/images/average.svg" /><label for="rating2"
+                  >Average</label
+                >
+                <input
+                  type="radio"
+                  id="rating3"
+                  formControlName="rating"
+                  value="3"
+                /><img src="../assets/images/good.svg" /><label for="rating3"
+                  >Good</label
+                >
+                <input
+                  type="radio"
+                  id="rating4"
+                  formControlName="rating"
+                  value="4"
+                /><img src="../assets/images/better.svg" /><label for="rating4"
+                  >Better</label
+                >
+                <input
+                  type="radio"
+                  id="rating5"
+                  formControlName="rating"
+                  value="5"
+                /><img src="../assets/images/exc.svg" /><label for="rating5"
+                  >Excellent</label
+                >
+              </fieldset>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="Comments">Any comments to improve our app</label>
+            <textarea
+              formControlName="Comments"
+              class="form-control"
+              [ngClass]="{ 'is-invalid': submitted && f.Comments.errors }"
+            ></textarea>
+          </div>
+
+          <div class="form-group">
+            <button [disabled]="loading" class="btn bg-primary">
+              <span
+                *ngIf="loading"
+                class="spinner-border spinner-border-sm mr-1"
+              ></span>
+              SUBMIT
+            </button>
+          </div>
+        </div>
+      </form>
+    </span>
+    <div class="col-sm-12" *ngIf="succesFB" style="margin-top: -30px">
+      <h2 class="ipdhead">Out Patient Department Feedback</h2>
+      <h5 class="ipdwelcome">
+        Welcome !. Thank you for choosing
+        <span
+          style="
+            text-transform: uppercase;
+            color: #036 !important;
+            font-weight: bolder;
+            text-decoration: underline;
+          "
+          >{{ hospital_Name }}</span
+        >, please share your experience with our services
+      </h5>
+      <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+        <div id="accordion">
+          <div class="card">
+            <div class="card-header" id="headingOne">
+              <h5 class="mb-0">
+                <button
+                  class="btn btn-link"
+                  aria-expanded="true"
+                  aria-controls="collapseOne"
+                  (click)="makeEvoid($event)"
+                >
+                  General Info
+                </button>
+              </h5>
+            </div>
+
+            <div
+              id="collapseOne"
+              class="collapse show"
+              aria-labelledby="headingOne"
+              data-parent="#accordion"
+            >
+              <div class="card-body">
+                <div class="form-group ginfowidth">
+                  <label for="Name">Name <span class="mandtry">*</span> </label>
+                  <input
+                    type="text"
+                    formControlName="Name"
+                    class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted && f.Name.errors }"
+                    maxlength="50"
+                  />
+                  <div
+                    *ngIf="submitted && f.Name.errors"
+                    class="invalid-feedback"
+                  >
+                    <div *ngIf="f.Name.errors.required">Name is required</div>
+                  </div>
+                </div>
+
+                <div class="form-group ginfowidth">
+                  <label for="Email"
+                    >Email <span class="mandtry">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    formControlName="Email"
+                    class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted && f.Email.errors }"
+                    maxlength="100"
+                  />
+                  <div
+                    *ngIf="submitted && f.Email.errors"
+                    class="invalid-feedback"
+                  >
+                    <div *ngIf="f.Email.errors.required">Email is required</div>
+                  </div>
+                </div>
+
+                <div class="form-group ginfowidth">
+                  <label for="Mobile"
+                    >Mobile <span class="mandtry">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    formControlName="Mobile"
+                    class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted && f.Mobile.errors }"
+                    maxlength="13"
+                  />
+                  <div
+                    *ngIf="submitted && f.Mobile.errors"
+                    class="invalid-feedback"
+                  >
+                    <div *ngIf="f.Mobile.errors.required">
+                      Mobile is required
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group ginfowidth">
+                  <label for="Gender">Gender</label>
+                  <select
+                    class="form-control"
+                    formControlName="Gender"
+                    [ngClass]="{ 'is-invalid': submitted && f.Gender.errors }"
+                  >
+                    <option value="" selected="selected">Select Gender</option>
+                    <option *ngFor="let rt of gender" [ngValue]="rt">
+                      {{ rt }}
+                    </option>
+                  </select>
+                  <div
+                    *ngIf="submitted && f.Gender.errors"
+                    class="invalid-feedback"
+                  >
+                    <div *ngIf="f.Gender.errors.required">
+                      Gender is required
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group ginfowidth">
+                  <label for="Pincode">Pincode </label>
+                  <input
+                    type="text"
+                    formControlName="Pincode"
+                    class="form-control"
+                    maxlength="8"
+                  />
+                </div>
+
+                <div class="form-group ginfowidth">
+                  <mat-form-field appearance="fill">
+                    <mat-label>DOB</mat-label>
+                    <input
+                      matInput
+                      [matDatepicker]="picker"
+                      [readonly]="true"
+                      formControlName="DOB"
+                      [min]="minDate"
+                      [max]="tomorrow"
+                      (dateChange)="calAge($event)"
+                    />
+                    <mat-datepicker-toggle
+                      matSuffix
+                      [for]="picker"
+                    ></mat-datepicker-toggle>
+                    <mat-datepicker #picker startView="multi-year">
+                    </mat-datepicker>
+                  </mat-form-field>
+                  <input
+                    type="text"
+                    [readonly]="true"
+                    formControlName="age"
+                    class="form-control"
+                    value="{{ cage }}"
+                    style="width: 100px; float: right"
+                  />
+                </div>
+
+                <div class="form-group ginfowidth">
+                  <label for="regType"
+                    >Visitor Type <span class="mandtry">*</span></label
+                  >
+                  <select
+                    class="form-control"
+                    formControlName="visitorType"
+                    [ngClass]="{
+                      'is-invalid': submitted && f.visitorType.errors
+                    }"
+                  >
+                    <option value="" selected="selected">
+                      Select Visitor Type
+                    </option>
+                    <option *ngFor="let rt of RegType" [ngValue]="rt">
+                      {{ rt }}
+                    </option>
+                  </select>
+                  <div
+                    *ngIf="submitted && f.visitorType.errors"
+                    class="invalid-feedback"
+                  >
+                    <div *ngIf="f.visitorType.errors.required">
+                      Visitor Type is required
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group ginfowidth">
+                  <label for="regType"
+                    >Patient Type <span class="mandtry">*</span></label
+                  >
+                  <select
+                    class="form-control"
+                    formControlName="PatientType"
+                    [ngClass]="{
+                      'is-invalid': submitted && f.PatientType.errors
+                    }"
+                  >
+                    <option value="" selected="selected">
+                      Select Patient Type
+                    </option>
+                    <option *ngFor="let rt of patType" [ngValue]="rt">
+                      {{ rt }}
+                    </option>
+                  </select>
+                  <div
+                    *ngIf="submitted && f.PatientType.errors"
+                    class="invalid-feedback"
+                  >
+                    <div *ngIf="f.PatientType.errors.required">
+                      Patient Type is required
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group ginfowidth">
+                  <label for="department"
+                    >Out Patient Department Visited or Out Patient Department
+                    Consultation Number
+                  </label>
+                  <input
+                    type="text"
+                    formControlName="department"
+                    class="form-control"
+                    [ngClass]="{
+                      'is-invalid': submitted && f.department.errors
+                    }"
+                    maxlength="100"
+                  />
+                  <div
+                    *ngIf="submitted && f.department.errors"
+                    class="invalid-feedback"
+                  >
+                    <div *ngIf="f.department.errors.required">
+                      Department is required
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header" id="headingTwo">
+              <h5 class="mb-0">
+                <button
+                  class="btn btn-link collapsed"
+                  aria-expanded="false"
+                  aria-controls="collapseTwo"
+                  (click)="makeEvoid($event)"
+                >
+                  Feedback section
+                </button>
+              </h5>
+            </div>
+            <div
+              id="collapseTwo"
+              class="collapse show"
+              aria-labelledby="headingTwo"
+              data-parent="#accordion"
+            >
+              <div class="card-body">
+                <div class="form-group mart20">
+                  <p class="mar0">
+                    <strong>1. Reception: </strong>
+                  </p>
+
+                  <div class="star-rating hiddenradio">
+                    <fieldset>
+                      <input
+                        type="radio"
+                        id="w1"
+                        formControlName="Reception"
+                        value="1"
+                        name="Reception"
+                      /><img src="../assets/images/poor.svg" />
+                      <label for="w1">Poor</label><br />
+                      <input
+                        type="radio"
+                        id="w2"
+                        formControlName="Reception"
+                        value="2"
+                        name="Reception"
+                      /><img src="../assets/images/average.svg" /><label
+                        for="w2"
+                        >Average</label
+                      ><br />
+                      <input
+                        type="radio"
+                        id="w3"
+                        formControlName="Reception"
+                        value="3"
+                        name="Reception"
+                      />
+                      <img src="../assets/images/good.svg" />
+                      <label for="w3">Good</label><br />
+                      <input
+                        type="radio"
+                        id="w4"
+                        formControlName="Reception"
+                        value="4"
+                        name="Reception"
+                      />
+                      <img src="../assets/images/better.svg" /><label for="w4"
+                        >Better</label
+                      ><br />
+                      <input
+                        type="radio"
+                        id="w5"
+                        formControlName="Reception"
+                        value="5"
+                        name="Reception"
+                      />
+                      <img src="../assets/images/exc.svg" /><label for="w5"
+                        >Excellent</label
+                      >
+                    </fieldset>
+                  </div>
+                </div>
+                <div class="form-group mart20">
+                  <p class="mar0">
+                    <strong>2. Staff Courtesy: </strong>
+                  </p>
+                  <div class="star-rating">
+                    <fieldset>
+                      <input
+                        type="radio"
+                        id="ra1"
+                        formControlName="StaffCourtesy"
+                        value="1"
+                        name="StaffCourtesy"
+                      />
+                      <img src="../assets/images/poor.svg" />
+                      <label for="ra1">Poor</label><br />
+                      <input
+                        type="radio"
+                        id="ra2"
+                        formControlName="StaffCourtesy"
+                        value="2"
+                        name="StaffCourtesy"
+                      /><img src="../assets/images/average.svg" /><label
+                        for="ra2"
+                        >Average</label
+                      ><br />
+                      <input
+                        type="radio"
+                        id="ra3"
+                        formControlName="StaffCourtesy"
+                        value="3"
+                        name="StaffCourtesy"
+                      />
+                      <img src="../assets/images/good.svg" /><label for="ra3"
+                        >Good</label
+                      ><br />
+                      <input
+                        type="radio"
+                        id="ra4"
+                        formControlName="StaffCourtesy"
+                        value="4"
+                        name="StaffCourtesy"
+                      /><img src="../assets/images/better.svg" /><label
+                        for="ra4"
+                        >Better</label
+                      ><br />
+                      <input
+                        type="radio"
+                        id="ra5"
+                        formControlName="StaffCourtesy"
+                        value="5"
+                        name="StaffCourtesy"
+                      />
+                      <img src="../assets/images/exc.svg" /><label for="ra5"
+                        >Excellent</label
+                      >
+                    </fieldset>
+                  </div>
+                </div>
+
+                <div class="form-group mart20">
+                  <p class="mar0">
+                    <strong>3. Ability to answer your Queries: </strong>
+                  </p>
+                  <div class="star-rating">
+                    <fieldset>
+                      <input
+                        type="radio"
+                        id="rb1"
+                        formControlName="AbilitytoansweryourQueries"
+                        value="1"
+                        name="AbilitytoansweryourQueries"
+                      />
+                      <img src="../assets/images/poor.svg" />
+                      <label for="rb1">Poor</label><br />
+                      <input
+                        type="radio"
+                        id="rb2"
+                        formControlName="AbilitytoansweryourQueries"
+                        value="2"
+                        name="AbilitytoansweryourQueries"
+                      /><img src="../assets/images/average.svg" /><label
+                        for="rb2"
+                        >Average</label
+                      ><br />
+                      <input
+                        type="radio"
+                        id="rb3"
+                        formControlName="AbilitytoansweryourQueries"
+                        value="3"
+                        name="AbilitytoansweryourQueries"
+                      /><img src="../assets/images/good.svg" /><label for="rb3"
+                        >Good</label
+                      ><br />
+                      <input
+                        type="radio"
+                        id="rb4"
+                        formControlName="AbilitytoansweryourQueries"
+                        value="4"
+                        name="AbilitytoansweryourQueries"
+                      /><img src="../assets/images/better.svg" /><label
+                        for="rb4"
+                        >Better</label
+                      ><br />
+                      <input
+                        type="radio"
+                        id="rb5"
+                        formControlName="AbilitytoansweryourQueries"
+                        value="5"
+                        name="AbilitytoansweryourQueries"
+                      /><img src="../assets/images/exc.svg" /><label for="rb5"
+                        >Excellent</label
+                      >
+                    </fieldset>
+                  </div>
+                </div>
+
+                <div class="form-group mart20">
+                  <p class="mar0">
+                    <strong>4. General Comfort & Cleanliness: </strong>
+                  </p>
+                  <div class="star-rating">
+                    <fieldset>
+                      <input
+                        type="radio"
+                        id="rflagc1"
+                        formControlName="GeneralComfortandCleanliness"
+                        value="1"
+                        name="GeneralComfortandCleanliness"
+                      /><img src="../assets/images/poor.svg" />
+                      <label for="rflagc1">Poor</label><br />
+                      <input
+                        type="radio"
+                        id="rflagc2"
+                        formControlName="GeneralComfortandCleanliness"
+                        value="2"
+                        name="GeneralComfortandCleanliness"
+                      /><img src="../assets/images/average.svg" /><label
+                        for="rflagc2"
+                        >Average</label
+                      ><br />
+                      <input
+                        type="radio"
+                        id="rflagc3"
+                        formControlName="GeneralComfortandCleanliness"
+                        value="3"
+                        name="GeneralComfortandCleanliness"
+                      /><img src="../assets/images/good.svg" /><label
+                        for="rflagc3"
+                        >Good</label
+                      ><br />
+                      <input
+                        type="radio"
+                        id="rflagc4"
+                        formControlName="GeneralComfortandCleanliness"
+                        value="4"
+                        name="GeneralComfortandCleanliness"
+                      /><img src="../assets/images/better.svg" /><label
+                        for="rflagc4"
+                        >Better</label
+                      ><br />
+                      <input
+                        type="radio"
+                        id="rflagc5"
+                        formControlName="GeneralComfortandCleanliness"
+                        value="5"
+                        name="GeneralComfortandCleanliness"
+                      /><img src="../assets/images/exc.svg" /><label
+                        for="rflagc5"
+                        >Excellent</label
+                      >
+                    </fieldset>
+                  </div>
+                </div>
+
+                <div class="form-group mart20">
+                  <p class="mar0">
+                    <strong>5. Waiting time for Doctor: </strong>
+                  </p>
+                  <div class="star-rating">
+                    <fieldset>
+                      <input
+                        type="radio"
+                        id="rflagd1"
+                        formControlName="WaitingtimeforDoctor"
+                        value="1"
+                        name="WaitingtimeforDoctor"
+                      />
+                      <img src="../assets/images/poor.svg" />
+                      <label for="rflagd1">Poor</label><br />
+                      <input
+                        type="radio"
+                        id="rflagd2"
+                        formControlName="WaitingtimeforDoctor"
+                        value="2"
+                        name="WaitingtimeforDoctor"
+                      /><img src="../assets/images/average.svg" /><label
+                        for="rflagd2"
+                        >Average</label
+                      ><br />
+                      <input
+                        type="radio"
+                        id="rflagd3"
+                        formControlName="WaitingtimeforDoctor"
+                        value="3"
+                        name="WaitingtimeforDoctor"
+                      /><img src="../assets/images/good.svg" /><label
+                        for="rflagd3"
+                        >Good</label
+                      ><br />
+                      <input
+                        type="radio"
+                        id="rflagd4"
+                        formControlName="WaitingtimeforDoctor"
+                        value="4"
+                        name="WaitingtimeforDoctor"
+                      /><img src="../assets/images/better.svg" /><label
+                        for="rflagd4"
+                        >Better</label
+                      ><br />
+                      <input
+                        type="radio"
+                        id="rflagd5"
+                        formControlName="WaitingtimeforDoctor"
+                        value="5"
+                        name="WaitingtimeforDoctor"
+                      /><img src="../assets/images/exc.svg" /><label
+                        for="rflagd5"
+                        >Excellent</label
+                      >
+                    </fieldset>
+                  </div>
+                </div>
+
+                <div class="form-group mart20">
+                  <p class="mar0">
+                    <strong>6. Care by Nurse: </strong>
+                  </p>
+                  <div class="star-rating">
+                    <fieldset>
+                      <input
+                        type="radio"
+                        id="rflage1"
+                        formControlName="CarebyNurse"
+                        value="1"
+                        name="CarebyNurse"
+                      />
+                      <img src="../assets/images/poor.svg" /><label
+                        for="rflage1"
+                        >Poor</label
+                      ><br />
+                      <input
+                        type="radio"
+                        id="rflage2"
+                        formControlName="CarebyNurse"
+                        value="2"
+                        name="CarebyNurse"
+                      /><img src="../assets/images/average.svg" /><label
+                        for="rflage2"
+                        >Average</label
+                      ><br />
+                      <input
+                        type="radio"
+                        id="rflage3"
+                        formControlName="CarebyNurse"
+                        value="3"
+                        name="CarebyNurse"
+                      /><img src="../assets/images/good.svg" /><label
+                        for="rflage3"
+                        >Good</label
+                      ><br />
+                      <input
+                        type="radio"
+                        id="rflage4"
+                        formControlName="CarebyNurse"
+                        value="4"
+                        name="CarebyNurse"
+                      /><img src="../assets/images/better.svg" /><label
+                        for="rflage4"
+                        >Better</label
+                      ><br />
+                      <input
+                        type="radio"
+                        id="rflage5"
+                        formControlName="CarebyNurse"
+                        value="5"
+                        name="CarebyNurse"
+                      />
+                      <img src="../assets/images/exc.svg" /><label for="rflage5"
+                        >Excellent</label
+                      >
+                    </fieldset>
+                  </div>
+                </div>
+
+                <div class="form-group mart20">
+                  <p class="mar0">
+                    <strong>7. Care by Doctor: </strong>
+                  </p>
+                  <div class="star-rating">
+                    <fieldset>
+                      <input
+                        type="radio"
+                        id="rflagf1"
+                        formControlName="CarebyDoctor"
+                        value="1"
+                        name="CarebyDoctor"
+                      /><img src="../assets/images/poor.svg" />
+                      <label for="rflagf1">Poor</label><br />
+                      <input
+                        type="radio"
+                        id="rflagf2"
+                        formControlName="CarebyDoctor"
+                        value="2"
+                        name="CarebyDoctor"
+                      /><img src="../assets/images/average.svg" /><label
+                        for="rflagf2"
+                        >Average</label
+                      ><br />
+                      <input
+                        type="radio"
+                        id="rflagf3"
+                        formControlName="CarebyDoctor"
+                        value="3"
+                        name="CarebyDoctor"
+                      /><img src="../assets/images/good.svg" /><label
+                        for="rflagf3"
+                        >Good</label
+                      ><br />
+                      <input
+                        type="radio"
+                        id="rflagf4"
+                        formControlName="CarebyDoctor"
+                        value="4"
+                        name="CarebyDoctor"
+                      /><img src="../assets/images/better.svg" /><label
+                        for="rflagf4"
+                        >Better</label
+                      ><br />
+                      <input
+                        type="radio"
+                        id="rflagf5"
+                        formControlName="CarebyDoctor"
+                        value="5"
+                        name="CarebyDoctor"
+                      /><img src="../assets/images/exc.svg" /><label
+                        for="rflagf5"
+                        >Excellent</label
+                      >
+                    </fieldset>
+                  </div>
+                </div>
+
+                <div class="form-group mart20">
+                  <p class="mar0">
+                    <strong>8. Laboratory Service: </strong>
+                  </p>
+                  <div class="star-rating">
+                    <fieldset>
+                      <input
+                        type="radio"
+                        id="rflagg1"
+                        formControlName="LaboratoryService"
+                        value="1"
+                        name="LaboratoryService"
+                      /><img src="../assets/images/poor.svg" />
+                      <label for="rflagg1">Poor</label><br />
+                      <input
+                        type="radio"
+                        id="rflagg2"
+                        formControlName="LaboratoryService"
+                        value="2"
+                        name="LaboratoryService"
+                      /><img src="../assets/images/average.svg" /><label
+                        for="rflagg2"
+                        >Average</label
+                      ><br />
+                      <input
+                        type="radio"
+                        id="rflagg3"
+                        formControlName="LaboratoryService"
+                        value="3"
+                        name="LaboratoryService"
+                      /><img src="../assets/images/good.svg" /><label
+                        for="rflagg3"
+                        >Good</label
+                      ><br />
+                      <input
+                        type="radio"
+                        id="rflagg4"
+                        formControlName="LaboratoryService"
+                        value="4"
+                        name="LaboratoryService"
+                      /><img src="../assets/images/better.svg" /><label
+                        for="rflagg4"
+                        >Better</label
+                      ><br />
+                      <input
+                        type="radio"
+                        id="rflagg5"
+                        formControlName="LaboratoryService"
+                        value="5"
+                        name="LaboratoryService"
+                      /><img src="../assets/images/exc.svg" /><label
+                        for="rflagg5"
+                        >Excellent</label
+                      >
+                    </fieldset>
+                  </div>
+                </div>
+
+                <div class="form-group mart20">
+                  <p class="mar0">
+                    <strong>9. Pharmacy Service: </strong>
+                  </p>
+                  <div class="star-rating">
+                    <fieldset>
+                      <input
+                        type="radio"
+                        id="rflagh1"
+                        formControlName="PharmacyService"
+                        value="1"
+                        name="PharmacyService"
+                      />
+                      <img src="../assets/images/poor.svg" />
+                      <label for="rflagh1">Poor</label><br />
+                      <input
+                        type="radio"
+                        id="rflagh2"
+                        formControlName="PharmacyService"
+                        value="2"
+                        name="PharmacyService"
+                      /><img src="../assets/images/average.svg" /><label
+                        for="rflagh2"
+                        >Average</label
+                      ><br />
+                      <input
+                        type="radio"
+                        id="rflagh3"
+                        formControlName="PharmacyService"
+                        value="3"
+                        name="PharmacyService"
+                      /><img src="../assets/images/good.svg" /><label
+                        for="rflagh3"
+                        >Good</label
+                      ><br />
+                      <input
+                        type="radio"
+                        id="rflagh4"
+                        formControlName="PharmacyService"
+                        value="4"
+                        name="PharmacyService"
+                      /><img src="../assets/images/better.svg" /><label
+                        for="rflagh4"
+                        >Better</label
+                      ><br />
+                      <input
+                        type="radio"
+                        id="rflagh5"
+                        formControlName="PharmacyService"
+                        value="5"
+                        name="PharmacyService"
+                      /><img src="../assets/images/exc.svg" /><label
+                        for="rflagh5"
+                        >Excellent</label
+                      >
+                    </fieldset>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="address">
+                    <strong
+                      >10. Any Comments to help us improve our Services.</strong
+                    ></label
+                  >
+                  <textarea
+                    formControlName="Comments"
+                    class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted && f.Comments.errors }"
+                  ></textarea>
+                </div>
+
+                <div class="form-group mart20">
+                  <p class="mar0">
+                    <strong>11. How did you come to know about us: </strong>
+                  </p>
+                  <div class="star-rating">
+                    <select
+                      class="form-control"
+                      formControlName="Howdidyouknowaboutus"
+                      [ngClass]="{
+                        'is-invalid': submitted && f.Howdidyouknowaboutus.errors
+                      }"
+                    >
+                      <option value="" selected="selected">Select</option>
+                      <option *ngFor="let kbu of kbuType" [ngValue]="kbu">
+                        {{ kbu }}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-check marb10">
+                  <input
+                    type="checkbox"
+                    class="form-check-input"
+                    id="Willyourevisitus"
+                    name="Willyourevisitus"
+                    formControlName="Willyourevisitus"
+                    style="padding: 40px"
+                  />
+                  <label class="form-check-label" for="Willyourevisitus"
+                    >Will you revisit us ?</label
+                  >
+                </div>
+
+                <div class="form-check marb10">
+                  <input
+                    type="checkbox"
+                    class="form-check-input"
+                    id="WillyourecommendUs"
+                    name="WillyourecommendUs"
+                    formControlName="WillyourecommendUs"
+                    style="padding: 40px"
+                  />
+                  <label class="form-check-label" for="WillyourecommendUs"
+                    >Will you recommend Us ?</label
+                  >
+                </div>
+
+                <div class="form-check marb10">
+                  <input
+                    type="checkbox"
+                    class="form-check-input"
+                    id="Willyousharehospitallink"
+                    name="Willyousharehospitallink"
+                    formControlName="Willyousharehospitallink"
+                    style="padding: 50px"
+                  />
+                  <label class="form-check-label" for="Willyousharehospitallink"
+                    >Do you want to share the Hospital Link ?</label
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- <div class="card">
+            <div class="card-header" id="headingThree">
+              <h5 class="mb-0">
+                <button
+                  class="btn btn-link collapsed"
+                  data-toggle="collapse"
+                  data-target="#collapseThree"
+                  aria-expanded="false"
+                  aria-controls="collapseThree"
+                  (click)="makeEvoid($event)"
+                >
+                  Personnel Info
+                </button>
+              </h5>
+            </div>
+            <div
+              id="collapseThree"
+              class="collapse show"
+              aria-labelledby="headingThree"
+              data-parent="#accordion"
+            >
+              <div class="card-body">
+                <div class="form-group ginfowidth">
+                  <label for="lName">Last Name </label>
+                  <input
+                    type="text"
+                    formControlName="lName"
+                    class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted && f.lName.errors }"
+                    maxlength="50"
+                  />
+                  <div
+                    *ngIf="submitted && f.lName.errors"
+                    class="invalid-feedback"
+                  >
+                    <div *ngIf="f.lName.errors.required">
+                      Last Name is required
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group ginfowidth">
+                  <label for="specialityVisited">Speciality Visited</label>
+                  <select
+                    class="form-control"
+                    formControlName="specialityVisited"
+                    [ngClass]="{
+                      'is-invalid': submitted && f.specialityVisited.errors
+                    }"
+                  >
+                    <option value="" selected="selected">
+                      Select Visited Speciality
+                    </option>
+                    <option *ngFor="let rt of specialityVisited" [ngValue]="rt">
+                      {{ rt }}
+                    </option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div> -->
+        </div>
+        <div class="mandtry" *ngIf="registrationForminvalid">
+          <p>Some mandatory fields are missing, please check and resubmit</p>
+        </div>
+        <div class="form-group" style="margin: 20px 0 40px 0">
+          <button [disabled]="loading" class="btn bg-primary">
+            <span
+              *ngIf="loading"
+              class="spinner-border spinner-border-sm mr-1"
+            ></span>
+            Submit Feedback
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

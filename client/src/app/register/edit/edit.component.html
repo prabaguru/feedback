@@ -1,0 +1,250 @@
+﻿<span *ngIf="shareData.getData('profile')">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-10">
+        <h2 class="underline">
+          Welcome {{ authenticationService.currentUserValue.firstName }}!
+        </h2>
+        <p>Dear Healthcare Professionals and Health care Organizations,</p>
+        <p>
+          Patient experience is at the heart of healthcare.
+          <strong class="underline">Gudwil.live</strong> is a technology tool
+          made to be fast in gathering feedback and interpreting a patient’s
+          experience which can give you as a healthcare professional a faster
+          time to act and give them a better service.
+        </p>
+        <p>
+          <strong class="underline">Gudwil.live</strong> is a very purposeful
+          feedback assessment tool, a mean by which we can reduce readmission
+          and give people greater ownership over their care.
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-6 offset-sm-3">
+        <h2>Hospital Profile Information</h2>
+        <form [formGroup]="editregisterForm" (ngSubmit)="onSubmit()">
+          <div class="form-group">
+            <label for="firstName"
+              >Hospital Name <span class="required">*</span></label
+            >
+            <input
+              type="text"
+              formControlName="firstName"
+              class="form-control"
+              [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }"
+              maxlength="200"
+              readonly="readonly"
+            />
+
+            <div
+              *ngIf="submitted && f.firstName.errors"
+              class="invalid-feedback"
+            >
+              <div *ngIf="f.firstName.errors.required">
+                Hospital Name is required
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="email">Email <span class="required">*</span></label>
+            <input
+              type="text"
+              formControlName="email"
+              class="form-control"
+              [ngClass]="{ 'is-invalid': submitted && f.email.errors }"
+              maxlength="200"
+              readonly="readonly"
+            />
+            <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+              <div *ngIf="f.email.errors.required">Email is required</div>
+              <div *ngIf="f.email.errors.pattern">Enter a valid email</div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="mobile">Mobile <span class="required">*</span></label>
+            <input
+              type="text"
+              formControlName="mobile"
+              class="form-control"
+              [ngClass]="{ 'is-invalid': submitted && f.mobile.errors }"
+              maxlength="13"
+            />
+            <div *ngIf="submitted && f.mobile.errors" class="invalid-feedback">
+              <div *ngIf="f.mobile.errors.required">Mobile no is required</div>
+              <div *ngIf="f.mobile.errors.pattern">Only numbers Allowed</div>
+              <div *ngIf="f.mobile.errors.minlength">
+                Mobile no must have 10 digits
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="password"
+              >Password <span class="required">*</span></label
+            >
+            <input
+              type="password"
+              formControlName="password"
+              class="form-control"
+              [ngClass]="{ 'is-invalid': submitted && f.password.errors }"
+              maxlength="20"
+              (change)="onPasswordChange()"
+            />
+            <div
+              *ngIf="submitted && f.password.errors"
+              class="invalid-feedback"
+            >
+              <div *ngIf="f.password.errors.required">Password is required</div>
+              <div *ngIf="f.password.errors.minlength">
+                Password must be at least 6 characters
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="confirmpassword"
+              >Confirm Password <span class="required">*</span></label
+            >
+            <input
+              type="password"
+              formControlName="confirmpassword"
+              class="form-control"
+              [ngClass]="{
+                'is-invalid': submitted && f.confirmpassword.errors
+              }"
+              maxlength="20"
+              (change)="onPasswordChange()"
+            />
+            <div
+              *ngIf="submitted && f.confirmpassword.errors"
+              class="invalid-feedback"
+            >
+              <div *ngIf="f.confirmpassword.errors.required">
+                Confirm password
+              </div>
+              <div *ngIf="confirmpassword.hasError('mismatch')">
+                Password doesn't match
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="address">Address</label>
+            <input type="text" formControlName="address" class="form-control" />
+          </div>
+          <div class="form-group">
+            <label for="Pincode">Pincode</label>
+            <input type="text" formControlName="Pincode" class="form-control" />
+          </div>
+          <div class="form-group">
+            <button [disabled]="loading" class="btn bg-primary">
+              <span
+                *ngIf="loading"
+                class="spinner-border spinner-border-sm mr-1"
+              ></span>
+              Update
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</span>
+<div class="container" *ngIf="shareData.getData('support')">
+  <div class="row">
+    <div class="col-sm-10">
+      <h2 class="underline">Contact us/Support</h2>
+      <p>
+        <img
+          src="http://www.weisermanner.com/images/logo.png"
+          style="background-color: #036; padding: 30px"
+        />
+      </p>
+      <p>Making your Hospital Better & your Business Happier :-)</p>
+      <b>Address:</b> Weisermanner Healthcare Pvt Ltd, <br />
+      No.3137, 7th main, HAL, 2nd Stage,<br />
+      Indiranagar, Bengaluru, Karnataka 560 008.<br />
+      <b>Phone:</b> +91 81055 50944.<br />
+    </div>
+  </div>
+</div>
+
+<div class="container" *ngIf="shareData.getData('pp')">
+  <div class="row">
+    <div class="col-sm-10">
+      <h2 class="underline">Privacy Policy / Terms and Conditions</h2>
+      <div id="content" class="col-sm-12">
+        <h4>General information</h4>
+        <p>
+          Welcome to our Privacy Policy page! When you use our store services,
+          you trust us with your information. This Privacy Policy is meant to
+          help you understand what data we collect, why we collect it, and what
+          we do with it. When you share information with us, we can make our
+          services even better for you. For instance, we can show you more
+          relevant search results and ads, help you connect with people or to
+          make sharing with others quicker and easier. As you use our services,
+          we want you to be clear how we’re using information and the ways in
+          which you can protect your privacy. This is important; we hope you
+          will take time to read it carefully. Remember, you can find controls
+          to manage your information and protect your privacy and security.
+          We’ve tried to keep it as simple as possible.
+        </p>
+        <h4>Management of personal data</h4>
+        <p>
+          You can view or edit your personal data online for many of our
+          services. You can also make choices about our collection and use of
+          your data. How you can access or control your personal data will
+          depend on which services you use. You can choose whether you wish to
+          receive promotional communications from our store by email, SMS,
+          physical mail, and telephone. If you receive promotional email or SMS
+          messages from us and would like to opt out, you can do so by following
+          the directions in that message. You can also make choices about the
+          receipt of promotional email, telephone calls, and postal mail by
+          visiting and signing into Company Promotional Communications Manager,
+          which allows you to update contact information, manage contact
+          preferences, opt out of email subscriptions, and choose whether to
+          share your contact information with our partners. These choices do not
+          apply to mandatory service communications that are part of certain
+          store services.
+        </p>
+        <h4>Sharing Your Information</h4>
+        <p>
+          We share your personal data with your consent or as necessary to
+          complete any transaction or provide any service you have requested or
+          authorized. For example, we share your content with third parties when
+          you tell us to do so. When you provide payment data to make a
+          purchase, we will share payment data with banks and other entities
+          that process payment transactions or provide other financial services,
+          and for fraud prevention and credit risk reduction. In addition, we
+          share personal data among our controlled affiliates and subsidiaries.
+          We also share personal data with vendors or agents working on our
+          behalf for the purposes described in this statement. For example,
+          companies we've hired to provide customer service support or assist in
+          protecting and securing our systems and services may need access to
+          personal data in order to provide those functions. In such cases,
+          these companies must abide by our data privacy and security
+          requirements and are not allowed to use personal data they receive
+          from us for any other purpose. We may also disclose personal data as
+          part of a corporate transaction such as a merger or sale of assets.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="text-muted">
+  <div class="container" style="text-align: center; padding-top: 20px">
+    <p>
+      <a href="javascript:void()" (click)="mainpageafooter(false, true, false)"
+        >Privacy Policy</a
+      >
+      |
+      <a href="javascript:void()" (click)="mainpageafooter(false, false, true)"
+        >Contact Us</a
+      >
+    </p>
+    <p>© Weisermanner Healthcare Pvt Ltd.</p>
+  </div>
+</footer>

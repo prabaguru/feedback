@@ -1,0 +1,270 @@
+﻿<div class="container">
+  <div class="row">
+    <div class="col-sm-2">
+      <h3>History</h3>
+    </div>
+    <div class="col-sm-4">
+      <div class="form-group">
+        <select
+          class="form-control"
+          (change)="getdatePeriod($event.target.value)"
+        >
+          <option>Select Date-Period for Analysis</option>
+          <option value="7">Last one Week</option>
+          <option value="30">Last one Month</option>
+          <option value="180">Last six Month</option>
+          <option value="All">View All Data</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-sm-5">
+      <form [formGroup]="reportSendForm" (ngSubmit)="onSubmit()">
+        <div class="form-row align-items-center">
+          <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+            <div *ngIf="f.email.errors.required">Email is required</div>
+            <div *ngIf="f.email.errors.pattern">
+              Enter a valid email: No Caps,Check for @.
+            </div>
+          </div>
+          <div class="col-auto">
+            <div class="input-group mb-2">
+              <div class="input-group-prepend">
+                <div class="input-group-text">Send this Report</div>
+              </div>
+              <input
+                type="email"
+                formControlName="email"
+                class="form-control"
+                [ngClass]="{ 'is-invalid': submitted && f.email.errors }"
+                maxlength="100"
+                placeholder="Email Address"
+              />
+            </div>
+          </div>
+
+          <div class="col-auto">
+            <button [disabled]="loading" class="btn btn-primary mb-2">
+              Send
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12">{{ emailtemplate }}</div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12">
+          <span *ngIf="ipdChartFlag">
+            <google-chart [data]="pieChart"></google-chart>
+          </span>
+        </div>
+
+        <div class="col-sm-6">
+          <h3>OPD</h3>
+          <span *ngIf="ipdChartFlag">
+            <button
+              type="button"
+              *ngIf="opdfeedbackdata.length > 0"
+              class="btn btn-primary"
+              data-toggle="modal"
+              data-target=".bd-example-modal-lg"
+              (click)="getdetailType('OPD')"
+            >
+              Other OPD Feedback Details
+            </button>
+            <button
+              *ngIf="opdfeedbackdata.length == 0"
+              type="button"
+              class="btn btn-primary"
+              disabled
+            >
+              No OPD Feedback Details found
+            </button>
+            <google-chart [data]="opd12"></google-chart>
+            <google-chart [data]="opd11"></google-chart>
+            <google-chart [data]="opd13"></google-chart>
+            <google-chart [data]="opd1"></google-chart>
+            <google-chart [data]="opd2"></google-chart>
+            <google-chart [data]="opd3"></google-chart>
+            <!-- <google-chart [data]="opd4"></google-chart> -->
+            <google-chart [data]="opd5"></google-chart>
+            <google-chart [data]="opd6"></google-chart>
+            <google-chart [data]="opd7"></google-chart>
+            <google-chart [data]="opd8"></google-chart>
+            <google-chart [data]="opd9"></google-chart>
+            <google-chart [data]="opd10"></google-chart>
+          </span>
+        </div>
+        <div class="col-sm-6">
+          <h3>IPD</h3>
+
+          <span *ngIf="ipdChartFlag">
+            <button
+              *ngIf="ipdfeedbackdata.length > 0"
+              type="button"
+              class="btn btn-primary"
+              data-toggle="modal"
+              data-target=".bd-example-modal-lg"
+              (click)="getdetailType('IPD')"
+            >
+              Other IPD Feedback Details
+            </button>
+            <button
+              *ngIf="ipdfeedbackdata.length == 0"
+              type="button"
+              class="btn btn-primary"
+              disabled
+            >
+              No IPD Feedback Details found
+            </button>
+            <google-chart [data]="ipd15"></google-chart>
+            <google-chart [data]="ipd1"></google-chart>
+            <google-chart [data]="ipd2"></google-chart>
+            <google-chart [data]="ipd3"></google-chart>
+            <google-chart [data]="ipd4"></google-chart>
+            <!-- <google-chart [data]="ipd5"></google-chart> -->
+            <google-chart [data]="ipd6"></google-chart>
+            <google-chart [data]="ipd7"></google-chart>
+            <google-chart [data]="ipd8"></google-chart>
+            <google-chart [data]="ipd9"></google-chart>
+            <google-chart [data]="ipd10"></google-chart>
+            <google-chart [data]="ipd11"></google-chart>
+            <google-chart [data]="ipd12"></google-chart>
+            <google-chart [data]="ipd13"></google-chart>
+            <google-chart [data]="ipd14"></google-chart>
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal -->
+    <div
+      class="modal fade bd-example-modal-lg"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="myLargeModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5
+              class="modal-title"
+              id="exampleModalLongTitle"
+              *ngIf="shareData.getData('departMent') == 'OPD'"
+            >
+              Other OPD Feedback Details
+            </h5>
+            <h5
+              class="modal-title"
+              id="exampleModalLongTitle"
+              *ngIf="shareData.getData('departMent') == 'IPD'"
+            >
+              Other IPD Feedback Details
+            </h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div
+              class="table-responsive"
+              *ngIf="shareData.getData('departMent') == 'OPD'"
+            >
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Mobile</th>
+                    <th scope="col">Gender</th>
+                    <th scope="col">Pincode</th>
+                    <th scope="col">DOB/Age</th>
+                    <th scope="col">Comments</th>
+                    <th scope="col">OPDVisited/OPDConsultationNumber</th>
+                    <th scope="col">Feedback Submitted</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let user of opdfeedbackdata">
+                    <td>{{ user.Name }}</td>
+                    <td>{{ user.Email }}</td>
+                    <td>{{ user.Mobile }}</td>
+                    <td>{{ user.Gender }}</td>
+                    <td>{{ user.Pincode }}</td>
+                    <td>
+                      {{ user.DOB | date: "dd/MM/yyyy" }} - {{ user.Age }} Years
+                    </td>
+                    <td>{{ user.Comments }}</td>
+                    <td>{{ user.OPDVisitedorOPDConsultationNumber }}</td>
+                    <td>{{ user.createdDate | date: "dd/MM/yyyy - HH:mm" }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div
+              class="table-responsive"
+              *ngIf="shareData.getData('departMent') == 'IPD'"
+            >
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Mobile</th>
+                    <th scope="col">Gender</th>
+                    <th scope="col">Pincode</th>
+                    <th scope="col">DOB/Age</th>
+                    <th scope="col">HowdidyoucometoknowaboutUs</th>
+                    <th scope="col">IPD Consultation No</th>
+                    <th scope="col">Recommended Doctors</th>
+                    <th scope="col">Recommended Nurses</th>
+                    <th scope="col">Comments</th>
+                    <th scope="col">Feedback Submitted</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let row of ipdfeedbackdata">
+                    <td>{{ row.Name }}</td>
+                    <td>{{ row.Email }}</td>
+                    <td>{{ row.Mobile }}</td>
+                    <td>{{ row.Gender }}</td>
+                    <td>{{ row.Pincode }}</td>
+                    <td>
+                      {{ row.DOB | date: "dd/MM/yyyy" }} - {{ row.Age }} Years
+                    </td>
+                    <td>{{ row.HowdidyoucometoknowaboutUs }}</td>
+                    <td>{{ row.IPDCONSULTATIONNo }}</td>
+                    <td>{{ row.doctors }}</td>
+                    <td>{{ row.nurses }}</td>
+                    <td>{{ row.Comments }}</td>
+                    <td>{{ row.createdDate | date: "dd/MM/yyyy - HH:mm" }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,301 @@
+﻿<h3 *ngIf="currentUser.role==='SUPER-ADMIN'">Registered Users</h3>
+<h3 *ngIf="currentUser.role==='Weisermanner'">Registered Hospitals</h3>
+<h3 *ngIf="currentUser.role!='SUPER-ADMIN' && currentUser.role!='Weisermanner' ">
+<span style="text-transform: uppercase;">{{currentUser.firstName}}</span> Profile Information </h3>
+
+<div class="table-responsive" *ngIf="currentUser.role==='SUPER-ADMIN'">
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">Action</th>
+      <th scope="col">FirstName</th>
+      <th scope="col">Email</th>
+      <th scope="col">Mobile</th>
+      <th scope="col">Reg Type</th>
+      <th scope="col">Role</th>
+      <th scope="col">LastLogin</th>
+      <th scope="col">CreatedDate</th>
+    </tr>
+  </thead>
+   <div class="center" *ngIf="users.length==0" align="center"><strong>No Users Found</strong></div>
+  <tbody>
+    <tr *ngFor="let user of users; let i = index">
+      <th scope="row">
+      	<a href="javascript:void();" data-toggle="modal" data-backdrop="static" data-keyboard="false"  data-target="#exampleModalLong" 
+        (click)="editUser(user)">
+      		<i class="fa fa-edit" aria-hidden="true"></i></a>
+      		&nbsp;&nbsp;&nbsp;
+      	<a href="javascript:void();" data-toggle="modal" data-backdrop="static" data-keyboard="false"  data-target="#exampleModal" (click)="getUserID(user.id)"
+        *ngIf="user.status">
+      		<i class="fa fa-trash" aria-hidden="true"></i>
+      	</a>
+      </th>
+      <td>{{user.firstName}}</td>
+      <td>{{user.email}}</td>
+      <td>{{user.mobile}}</td>
+      <td>{{user.regType}}</td>
+      <td>{{user.role}}</td>
+      <td>{{user.lastLogin | date: 'dd/MM/yyyy - HH:mm'}}</td>
+      <td>{{user.createdDate | date: 'dd/MM/yyyy'}}</td>
+  </tbody>
+</table>
+</div>
+
+<div class="table-responsive" *ngIf="currentUser.role!='SUPER-ADMIN' && currentUser.role!='Weisermanner'">
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">FirstName</th>
+      <th scope="col">Email</th>
+      <th scope="col">Mobile</th>
+      <th scope="col">Reg Type</th>
+      <th scope="col">Role</th>
+      <th scope="col">lastLogin</th>
+      <th scope="col">CreatedDate</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>{{currentUser.firstName}}</td>
+      <td>{{currentUser.email}}</td>
+      <td>{{currentUser.mobile}}</td>
+      <td>{{currentUser.regType}}</td>
+      <td>{{currentUser.role}}</td>
+      <td>{{currentUser.lastLogin | date: 'dd/MM/yyyy - HH:mm'}}</td>
+      <td>{{currentUser.createdDate | date: 'dd/MM/yyyy'}}</td>
+  </tbody>
+</table>
+</div>
+
+<span *ngIf="currentUser.role==='Weisermanner'">
+  <div>No of Hospitals Registered <span class="badge badge-primary"> {{users.length}}</span>
+  </div>
+  <div class="form-group">
+    <select (change)="gethospitaldetails($event.target.value)" class="form-control weisselect" id="exampleFormControlSelect1">
+      <option>Select Hospital</option>
+      <option *ngFor="let user of users;" [value]="user.id">{{user.firstName}}</option>
+    </select>
+  </div>
+<div id="accordion" *ngIf="accordFlag">
+  <div class="card">
+    <div class="card-header" id="h1">
+      <h5 class="mb-0">
+        <button class="btn btn-link" data-toggle="collapse" data-target="#r1" aria-expanded="true" aria-controls="r1">
+          <h5>Hospital Details</h5>
+        </button>
+      </h5>
+    </div>
+
+    <div id="r1" class="collapse" aria-labelledby="h1" data-parent="#accordion">
+      <div class="card-body">
+        <div class="table-responsive">
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">FirstName</th>
+      <th scope="col">Email</th>
+      <th scope="col">Mobile</th>
+      <th scope="col">Role</th>
+      <th scope="col">LastLogin</th>
+      <th scope="col">CreatedDate</th>
+      <th scope="col">Action</th>
+      <th scope="col">Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>{{hospitalDetails[0].firstName}}</td>
+      <td>{{hospitalDetails[0].email}}</td>
+      <td>{{hospitalDetails[0].mobile}}</td>
+      <td>{{hospitalDetails[0].role}}</td>
+      <td>{{hospitalDetails[0].lastLogin | date: 'dd/MM/yyyy - HH:mm'}}</td>
+      <td>{{hospitalDetails[0].createdDate | date: 'dd/MM/yyyy'}}</td>
+      <td *ngIf="hospitalDetails[0].status===true"><button type="button" class="btn btn-danger" 
+        (click)="deactivateall(hospitalDetails[0]._id,false)">
+      De-Activate
+    </button></td>
+    <td *ngIf="hospitalDetails[0].status===false"><button type="button" class="btn btn-success" 
+        (click)="deactivateall(hospitalDetails[0]._id,true)">
+      Activate
+    </button></td>
+      <td *ngIf="hospitalDetails[0].status===true">Active</td>
+      <td *ngIf="hospitalDetails[0].status===false">Inactive</td>
+
+  </tbody>
+</table>
+</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header" id="h2">
+      <h5 class="mb-0">
+        <button class="btn btn-link" data-toggle="collapse" data-target="#r2" aria-expanded="true" aria-controls="r2">
+         <h5>User Details <span class="badge badge-primary"> {{hospitalUsers.length}}</span></h5>
+        </button>
+      </h5>
+    </div>
+
+    <div id="r2" class="collapse" aria-labelledby="h2" data-parent="#accordion">
+      <div class="card-body">
+        <div class="table-responsive">
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">FirstName</th>
+      <th scope="col">Email</th>
+      <th scope="col">Mobile</th>
+      <th scope="col">Reg Type</th>
+      <th scope="col">Role</th>
+      <th scope="col">LastLogin</th>
+      <th scope="col">CreatedDate</th>
+      <th scope="col">Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of hospitalUsers; let i = index">
+      <td>{{user.firstName}}</td>
+      <td>{{user.email}}</td>
+      <td>{{user.mobile}}</td>
+      <td>{{user.regType}}</td>
+      <td>{{user.role}}</td>
+      <td>{{user.lastLogin | date: 'dd/MM/yyyy - HH:mm'}}</td>
+      <td>{{user.createdDate | date: 'dd/MM/yyyy'}}</td>
+      <td *ngIf="user.status===true">Active</td>
+      <td *ngIf="user.status===false">Inactive</td>
+  </tbody>
+</table>
+</div>
+      </div>
+    </div>
+  </div>
+
+<div class="card">
+    <div class="card-header" id="h3">
+      <h5 class="mb-0">
+        <button class="btn btn-link" data-toggle="collapse" data-target="#r3" aria-expanded="true" aria-controls="r3">
+         <h5>Feedback</h5>
+        </button>
+      </h5>
+    </div>
+
+    <div id="r3" class="collapse" aria-labelledby="h3" data-parent="#accordion">
+      <div class="card-body">
+       <button class="btn btn-primary" (click)="getFeedbackIPD(hospitalDetails[0]._id)">
+        Get Feedback Info
+        </button>
+        <span *ngIf="chartRowCount==0"> <strong>&nbsp; No Feedback records found..</strong></span>
+        <span *ngIf="ipdChartFlag">
+        <google-chart [data]="pieChart"></google-chart>
+        </span>
+      </div>
+    </div>
+  </div>
+
+
+</div>
+
+</span>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Delete User</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Please confirm to delete this user?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="deleteUser()">Confirm Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Edit User</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form #editForm="ngForm" (ngSubmit)="onSubmit(editForm);">
+ 
+  <div class="form-group">
+    <label for="firstname">First Name <span class="required">*</span></label>
+    <input type="text" class="form-control" id="firstname" name="firstName" [(ngModel)]="user.firstName" readonly="true">
+  </div>
+ 
+  
+ <div class="form-group">
+    <label for="email">Email <span class="required">*</span></label>
+    <input type="text"  class="form-control"  id="email" name="email"  [(ngModel)]="user.email" readonly="true">
+  </div>
+<div class="form-group">
+    <label for="mobile">Mobile <span class="required">*</span></label>
+    <input type="text" required class="form-control"  id="mobile" name="mobile" [(ngModel)]="user.mobile" maxlength="13">
+  </div>
+ 
+  <div class="form-group">
+    <label for="regType">Reg Type <span class="required">*</span></label>
+    <select id="regType" class="form-control" name="regType" [(ngModel)]="user.regType">
+      <option [ngValue]="c" *ngFor="let c of RegType">
+        {{c}}
+      </option>
+    </select>
+  </div>
+
+   <div class="form-group">
+    <label for="role">Role <span class="required">*</span></label>
+    <select id="role" class="form-control" name="role" [(ngModel)]="user.role">
+      <option [ngValue]="c" *ngFor="let c of UserRole">
+        {{c}}
+      </option>
+    </select>
+  </div>
+ 
+
+<div class="form-group">
+    <label for="password">Passsword - (Minlength-6) <span class="required">*</span></label>
+    <input type="password" class="form-control"  id="password" name="password" [(ngModel)]="user.password"  maxlength="10" minlength="6" #modelPassword="ngModel">
+  </div>
+
+  <div class="form-group">
+    <label for="cpassword">Confirm Passsword <span class="required">*</span></label>
+    <input type="password" ngValidateEqual="password"  class="form-control"  id="cpassword" name="cpassword" [(ngModel)]="user.cpassword"  maxlength="10" minlength="6" #modelConfirmPassword="ngModel"
+    >
+  </div>
+
+  <div *ngIf="(modelConfirmPassword.dirty || modelConfirmPassword.touched) && modelConfirmPassword.invalid">
+    <p class="warning-text" *ngIf="modelConfirmPassword.hasError('notEqual') && modelPassword.valid" style="color: red;">
+      Passwords Don't Match
+    </p>
+</div>
+
+<div class="form-check">
+    <input type="checkbox" class="form-check-input" id="status" 
+      name="status"[(ngModel)]="user.status" style="padding: 40px;">
+    <label class="form-check-label" for="status">Is-Active</label>
+  </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary"  [disabled]="editForm.invalid" data-dismiss="modal" (click)="onSubmit(editForm)">
+          <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+        Submit</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>

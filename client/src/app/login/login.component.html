@@ -1,0 +1,53 @@
+﻿<div class="container">
+  <div class="row">
+   <div class="col-sm-4">
+        <span class="heading">Patient Feedback</span>
+<span class="fa fa-star checked fat"></span>
+<span class="fa fa-star checked fat"></span>
+<span class="fa fa-star checked fat"></span>
+<span class="fa fa-star checked fat"></span>
+<span class="fa fa-star fat"></span>
+<p>4.1 average based on 254 reviews.</p>
+ <p style="">A well-planned patient feedback system can help hospitals identify gaps, make changes that will improve satisfaction, quality of care, attract new patients, increase patient engagement, and foster loyalty.</p>
+    </div>
+
+<div class="col-sm-6">
+
+<h2>Login</h2>
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+        <label for="username">Username<span class="italic">(Email)</span></label>
+        <input type="text" formControlName="username" class="form-control" maxlength="150" [ngClass]="{ 'is-invalid': submitted && f.username.errors }" />
+        <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+            <div *ngIf="f.username.errors.required">Username is required</div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" formControlName="password" maxlength="20" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+        <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+            <div *ngIf="f.password.errors.required">Password is required</div>
+        </div>
+    </div>
+    <div class="form-group">
+        <button [disabled]="loading" class="btn btn-primary bg-primary">
+            <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+            Login
+        </button>&nbsp;&nbsp;&nbsp;
+        <a routerLink="/register" class="btn bg-primary">Sign up</a>
+    </div>
+</form></div>
+
+ 
+
+</div>
+</div>
+
+<div class="container">
+  <div class="row">
+     <img src="../assets/images/exc.svg" class="imgcss">
+     <img src="../assets/images/better.svg" class="imgcss">
+     <img src="../assets/images/good.svg" class="imgcss">
+     <img src="../assets/images/average.svg" class="imgcss">
+     <img src="../assets/images/poor.svg" class="imgcss">
+    </div></div>

@@ -1,0 +1,28 @@
+﻿<h3>App Performance</h3>
+
+        <span *ngIf="chartRowCount==0"> <strong>&nbsp; No records found..</strong></span>
+        <h3>Total App Feeback recieved - {{appfeedbackdata.length}}</h3>
+        <span *ngIf="ChartFlag">
+        <google-chart [data]="pieChart"></google-chart>
+</span>
+
+        <div class="table-responsive">
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">Comments</th>
+      <th scope="col">SubmittedDate</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of appfeedbackdata">
+      <td>{{user.Comments}}</td>
+      <td>{{user.createdDate | date: 'dd/MM/yyyy - HH.mm'}}</td>
+  </tbody>
+</table>
+</div>
+
+       
+
+
+

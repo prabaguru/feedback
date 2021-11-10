@@ -1,0 +1,356 @@
+﻿<div class="d-flex" id="wrapper">
+  <!-- Sidebar -->
+
+  <div class="bg-primary" id="sidebar-wrapper" *ngIf="currentUser">
+    <div class="sidebar-heading">
+      <!-- GUDWIL-LIVE--><img src="../assets/images/logo.png" width="100" />
+    </div>
+    <div class="list-group list-group-flush" (click)="clearAlert()">
+      <a
+        href="javascript:void();"
+        routerLink="/home"
+        class="list-group-item list-group-item-action bg-primary"
+        >Dashboard</a
+      >
+      <a
+        href="javascript:void();"
+        routerLink="/userregister"
+        class="list-group-item list-group-item-action bg-primary"
+        *ngIf="currentUser.role === 'SUPER-ADMIN'"
+        >Add Users</a
+      >
+      <a
+        routerLink="/sendsms"
+        (click)="ChangeOPD('OPD'); shareData.setData('departMent', 'OPD')"
+        class="list-group-item list-group-item-action bg-primary"
+        *ngIf="
+          currentUser.regType === 'IPD' ||
+          currentUser.regType === 'OPD' ||
+          currentUser.role === 'SUPER-ADMIN'
+        "
+        >OPD</a
+      >
+      <a
+        routerLink="/sendsms"
+        (click)="ChangeOPD('IPD'); shareData.setData('departMent', 'IPD')"
+        class="list-group-item list-group-item-action bg-primary"
+        *ngIf="
+          currentUser.regType === 'OPD' ||
+          currentUser.regType === 'IPD' ||
+          currentUser.role === 'SUPER-ADMIN'
+        "
+        >IPD</a
+      >
+      <a
+        routerLink="/history"
+        class="list-group-item list-group-item-action bg-primary"
+        *ngIf="currentUser.role === 'SUPER-ADMIN'"
+        >History</a
+      >
+      <a
+        routerLink="/performance"
+        class="list-group-item list-group-item-action bg-primary"
+        *ngIf="currentUser.role === 'Weisermanner'"
+        >App Performance</a
+      >
+
+      <a
+        data-toggle="modal"
+        data-target="#exampleModalfb"
+        class="list-group-item list-group-item-action bg-primary"
+        style="cursor: pointer"
+        >Feedback-Questions</a
+      >
+    </div>
+  </div>
+  <!-- /#sidebar-wrapper -->
+
+  <!-- Page Content -->
+  <div id="page-content-wrapper">
+    <div class="bg-primary logohead" *ngIf="!currentUser">
+      <img src="../assets/images/logo.png" width="80" />
+    </div>
+    <nav
+      class="
+        navbar navbar-expand-lg navbar-light
+        border-bottom
+        bg-primary
+        midcontent
+      "
+    >
+      <a
+        href="javascript:void();"
+        *ngIf="currentUser"
+        id="menu-toggle"
+        (click)="toggleMenu($event)"
+        ><fa name="arrows-h"></fa
+      ></a>
+
+      <button
+        *ngIf="currentUser"
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div
+        class="collapse navbar-collapse"
+        id="navbarSupportedContent"
+        *ngIf="currentUser"
+      >
+        <ul class="navbar-nav ml-auto mt-2 mt-lg-0" (click)="clearAlert()">
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link white dropdown-toggle ccase"
+              href="#"
+              id="navbarDropdown"
+              role="button"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              Welcome {{ currentUser.firstName | slice: 0:40 }}!
+            </a>
+            <div
+              class="dropdown-menu dropdown-menu-right"
+              aria-labelledby="navbarDropdown"
+            >
+              <a
+                class="dropdown-item"
+                routerLink="/updateUser"
+                *ngIf="
+                  currentUser.role === 'SUPER-ADMIN' ||
+                  currentUser.role === 'Weisermanner'
+                "
+                >Manage Profile</a
+              >
+              <a
+                *ngIf="currentUser"
+                routerLink="/"
+                class="dropdown-item"
+                (click)="logout()"
+                >Logout</a
+              >
+            </div>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="container-fluid">
+      <alert></alert>
+
+      <router-outlet></router-outlet>
+      <app-loader></app-loader>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div
+  class="modal fade bd-example-modal-lg"
+  id="exampleModalfb"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">
+          Feedback-Questionnaire
+        </h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+          <li class="nav-item">
+            <a
+              class="nav-link active"
+              id="pills-home-tab"
+              data-toggle="pill"
+              href="#pills-home"
+              role="tab"
+              aria-controls="pills-home"
+              aria-selected="true"
+              >OPD Feedback</a
+            >
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              id="pills-profile-tab"
+              data-toggle="pill"
+              href="#pills-profile"
+              role="tab"
+              aria-controls="pills-profile"
+              aria-selected="false"
+              >IPD Feedback</a
+            >
+          </li>
+        </ul>
+        <div class="tab-content" id="pills-tabContent">
+          <div
+            class="tab-pane fade show active"
+            id="pills-home"
+            role="tabpanel"
+            aria-labelledby="pills-home-tab"
+          >
+            <table class="table table-striped">
+              <tbody>
+                <tr>
+                  <td>Name</td>
+                  <td>Email</td>
+                  <td>Mobile</td>
+                  <td>Gender</td>
+                  <td>Pincode</td>
+                  <td>DOB</td>
+                  <td>Age</td>
+                  <td>Visitor Type</td>
+                  <td>Patient Type</td>
+                  <td>OPD Visited or OPD Consultation Number</td>
+                </tr>
+              </tbody>
+            </table>
+            <table class="table table-striped">
+              <tbody>
+                <tr>
+                  <td>1. Reception</td>
+                </tr>
+                <tr>
+                  <td>2. Staff Courtesy</td>
+                </tr>
+                <tr>
+                  <td>3. Ability to answer your Queries</td>
+                </tr>
+                <tr>
+                  <td>4. General Comfort & Cleanlines</td>
+                </tr>
+                <tr>
+                  <td>5. Waiting time for Doctor</td>
+                </tr>
+                <tr>
+                  <td>6. Care by Nurse</td>
+                </tr>
+                <tr>
+                  <td>7. Care by Doctor</td>
+                </tr>
+                <tr>
+                  <td>8. Laboratory Service</td>
+                </tr>
+                <tr>
+                  <td>9. Pharmacy Service</td>
+                </tr>
+                <tr>
+                  <td>10. Any Comments to help us improve our Services</td>
+                </tr>
+                <tr>
+                  <td>11. How did you come to know about us</td>
+                </tr>
+                <tr>
+                  <td>12. Will you revisit us ?</td>
+                </tr>
+                <tr>
+                  <td>13. Will you recommend Us ?</td>
+                </tr>
+                <tr>
+                  <td>14. Do you want to share the Hospital Link ?</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div
+            class="tab-pane fade"
+            id="pills-profile"
+            role="tabpanel"
+            aria-labelledby="pills-profile-tab"
+          >
+            <table class="table table-striped">
+              <tbody>
+                <tr>
+                  <td>Name</td>
+                  <td>Email</td>
+                  <td>Mobile</td>
+                  <td>Gender</td>
+                  <td>Pincode</td>
+                  <td>DOB</td>
+                  <td>Age</td>
+                  <td>How did you come to know about Us</td>
+                  <td>IPD – CONSULTATION No</td>
+                </tr>
+              </tbody>
+            </table>
+            <table class="table table-striped">
+              <tbody>
+                <tr>
+                  <td>1. Reception</td>
+                </tr>
+                <tr>
+                  <td>2. Staff Courtesy</td>
+                </tr>
+                <tr>
+                  <td>3. Ability to answer your Queries</td>
+                </tr>
+                <tr>
+                  <td>4. General Comfort & Cleanliness</td>
+                </tr>
+                <tr>
+                  <td>5. Care by Nurses, Name the Nurses(Optional)</td>
+                </tr>
+                <tr>
+                  <td>6. Care by Doctors, Name the Doctors(Optional)</td>
+                </tr>
+                <tr>
+                  <td>7. Laboratory Service</td>
+                </tr>
+                <tr>
+                  <td>8. Pharmacy Service</td>
+                </tr>
+                <tr>
+                  <td>9. Food Service</td>
+                </tr>
+                <tr>
+                  <td>10. Admission Process</td>
+                </tr>
+                <tr>
+                  <td>11. Discharge Process</td>
+                </tr>
+                <tr>
+                  <td>12. Room Service & Facilities</td>
+                </tr>
+                <tr>
+                  <td>13. Cost Vs Service</td>
+                </tr>
+                <tr>
+                  <td>14. Any Comments to help us improve our Services</td>
+                </tr>
+                <tr>
+                  <td>15. Will you recommend Us ?</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

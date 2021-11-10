@@ -1,0 +1,330 @@
+/* You can add global styles to this file, and also import other style files */
+
+body {
+  background: #fff;
+}
+body a:hover {
+  text-decoration: none;
+}
+.white {
+  color: #fff !important;
+}
+#navbarSupportedContent {
+  margin-right: 50px;
+}
+.midcontent {
+  margin-bottom: 40px;
+}
+.italic {
+  font-style: italic;
+}
+.bg-primary {
+  background: #036 !important;
+  color: #fff !important;
+}
+
+.weisselect {
+  width: 40%;
+  margin: 10px;
+}
+
+/*#wrapper{
+  overflow-x: hidden;
+}*/
+.ccase {
+  text-transform: capitalize;
+}
+
+.imgcss {
+  margin-left: 50px;
+  width: 100px;
+  margin-top: 50px;
+  opacity: 0.4;
+}
+
+#sidebar-wrapper {
+  min-height: 100vh;
+  margin-left: -15rem;
+  -webkit-transition: margin 0.25s ease-out;
+  -moz-transition: margin 0.25s ease-out;
+  -o-transition: margin 0.25s ease-out;
+  transition: margin 0.25s ease-out;
+}
+
+#sidebar-wrapper .sidebar-heading {
+  padding: 0.875rem 1.25rem;
+  font-size: 1.2rem;
+}
+
+#sidebar-wrapper .list-group {
+  width: 15rem;
+}
+
+#page-content-wrapper {
+  min-width: 100vw;
+}
+
+#wrapper.toggled #sidebar-wrapper {
+  margin-left: 0;
+}
+
+@media (min-width: 768px) {
+  #sidebar-wrapper {
+    margin-left: 0;
+  }
+
+  #page-content-wrapper {
+    min-width: 0;
+    width: 100%;
+  }
+
+  #wrapper.toggled #sidebar-wrapper {
+    margin-left: -15rem;
+  }
+}
+
+.list-group-item {
+  position: relative;
+  display: block;
+  padding: 7px 0px 10px 21px !important;
+  background-color: #fff;
+  border-bottom: 1px solid #fff !important;
+}
+
+.logohead {
+  padding: 10px 0 0 40px;
+}
+
+.opdlabel {
+  margin: 10px;
+  display: inline-block;
+  position: relative;
+  padding-left: 40px;
+  cursor: pointer;
+}
+
+.radio-inline {
+  height: 1px;
+  width: 1px;
+  opacity: 0;
+}
+
+.outside {
+  display: inline-block;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  margin-top: -10px;
+  width: 20px;
+  height: 20px;
+  border: 2px solid red;
+  border-radius: 50%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  background: none;
+}
+
+.inside {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  display: inline-block;
+  border-radius: 50%;
+  width: 10px;
+  height: 10px;
+  background: red;
+  left: 3px;
+  top: 3px;
+  -webkit-transform: scale(0, 0);
+  transform: scale(0, 0);
+}
+.no-transforms .inside {
+  left: auto;
+  top: auto;
+  width: 0;
+  height: 0;
+}
+
+.radio-inline:checked + .outside .inside {
+  -webkit-animation: radio-select 0.1s linear;
+  animation: radio-select 0.1s linear;
+  -webkit-transform: scale(1, 1);
+  transform: scale(1, 1);
+}
+.no-transforms .radio-inline:checked + .outside .inside {
+  width: 10px;
+  height: 10px;
+}
+
+.mar0 {
+  margin: 0 !important;
+}
+.mart20 {
+  margin-top: 0px;
+}
+.ginfowidth {
+  width: 50% !important;
+}
+
+.marb10 {
+  margin-bottom: 10px !important;
+}
+.mandtry {
+  color: red !important;
+  font-weight: bold;
+}
+.optional {
+  font-size: 12px;
+  font-style: italic;
+}
+.required {
+  color: red;
+}
+.ipdhead {
+  font-size: 18px !important;
+}
+.ipdwelcome {
+  font-size: 13px !important;
+}
+
+.star-rating {
+  font-family: "FontAwesome";
+  margin: 10px auto;
+
+  > fieldset {
+    border: none;
+    display: inline-block;
+
+    &:not(:checked) {
+      > input {
+        position: absolute;
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
+
+      &:not(:checked) {
+        > input + img {
+          border-radius: 50%;
+          padding: 5px;
+          width: 35px;
+          height: 35px;
+
+          &:hover,
+          &:hover > input + img {
+            color: #000;
+            border: 1px solid #ffc10e;
+          }
+        }
+      }
+
+      > label {
+        padding: 0px 10px 0px 5px;
+        white-space: nowrap;
+        cursor: pointer;
+        color: #000;
+        top: -10px;
+
+        &:hover,
+        &:hover ~ label {
+          color: #000;
+        }
+      }
+    }
+
+    > input:checked + img {
+      border: 3px solid #036;
+      border-radius: 50%;
+    }
+
+    > label:active {
+      position: relative;
+      top: 2px;
+    }
+  }
+}
+
+.heading {
+  font-size: 25px;
+  margin-right: 25px;
+}
+
+.fat {
+  font-size: 25px;
+}
+
+.checked {
+  color: orange;
+}
+
+.underline {
+  text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  .ginfowidth {
+    width: 100% !important;
+  }
+  #wrapper {
+    overflow-x: hidden;
+  }
+
+  .star-rating {
+    font-family: "FontAwesome";
+    margin: 10px auto;
+
+    > fieldset {
+      border: none;
+      display: inline-block;
+
+      &:not(:checked) {
+        > input {
+          position: absolute;
+          opacity: 0;
+          width: 0;
+          height: 0;
+        }
+
+        &:not(:checked) {
+          > input + img {
+            border-radius: 50%;
+            padding: 4px;
+            width: 35px;
+            height: 35px;
+
+            &:hover,
+            &:hover > input + img {
+              color: #000;
+              border: none;
+            }
+          }
+        }
+
+        > label {
+          padding: 0px 10px 0px 5px;
+          white-space: nowrap;
+          cursor: pointer;
+          color: #000;
+          top: -10px;
+
+          &:hover,
+          &:hover ~ label {
+            color: #000;
+          }
+        }
+      }
+
+      > input:checked + img {
+        border: 3px solid #036;
+        border-radius: 50%;
+      }
+
+      > label:active {
+        position: relative;
+        top: 2px;
+      }
+    }
+  }
+}

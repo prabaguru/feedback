@@ -1,0 +1,134 @@
+﻿<div class="container">
+  <div class="row">
+    <div class="col-sm-6 offset-sm-3">
+      <h2>Register</h2>
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label for="firstName"
+            >Hospital Name <span class="required">*</span></label
+          >
+          <input
+            type="text"
+            formControlName="firstName"
+            maxlength="200"
+            class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }"
+            maxlength="200"
+          />
+          <input type="hidden" formControlName="role" />
+          <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
+            <div *ngIf="f.firstName.errors.required">
+              Hospital Name is required
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="email">Email <span class="required">*</span></label>
+          <input
+            type="email"
+            formControlName="email"
+            class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && f.email.errors }"
+            maxlength="200"
+          />
+          <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+            <div *ngIf="f.email.errors.required">Email is required</div>
+            <div *ngIf="f.email.errors.pattern">
+              Enter a valid email: No Caps,Check for @.
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="mobile">Mobile <span class="required">*</span></label>
+          <input
+            type="text"
+            formControlName="mobile"
+            class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && f.mobile.errors }"
+            maxlength="13"
+          />
+          <div *ngIf="submitted && f.mobile.errors" class="invalid-feedback">
+            <div *ngIf="f.mobile.errors.required">Mobile no is required</div>
+            <div *ngIf="f.mobile.errors.pattern">Only numbers Allowed</div>
+            <div *ngIf="f.mobile.errors.minlength">
+              Mobile no must have 10 digits
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password <span class="required">*</span></label>
+          <input
+            type="password"
+            formControlName="password"
+            class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && f.password.errors }"
+            maxlength="20"
+            (change)="onPasswordChange()"
+          />
+          <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+            <div *ngIf="f.password.errors.required">Password is required</div>
+            <div *ngIf="f.password.errors.minlength">
+              Password must be at least 6 characters
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="confirmpassword"
+            >Confirm Password <span class="required">*</span></label
+          >
+          <input
+            type="password"
+            formControlName="confirmpassword"
+            class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && f.confirmpassword.errors }"
+            maxlength="20"
+            (change)="onPasswordChange()"
+          />
+          <div
+            *ngIf="submitted && f.confirmpassword.errors"
+            class="invalid-feedback"
+          >
+            <div *ngIf="f.confirmpassword.errors.required">
+              Confirm password
+            </div>
+            <div *ngIf="confirmpassword.hasError('mismatch')">
+              Password doesn't match
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="address">Address</label>
+          <input
+            type="text"
+            formControlName="address"
+            class="form-control"
+            maxlength="300"
+          />
+        </div>
+        <div class="form-group">
+          <label for="Pincode">Pincode</label>
+          <input
+            type="text"
+            formControlName="Pincode"
+            class="form-control"
+            maxlength="10"
+          />
+        </div>
+
+        <div class="form-group">
+          <button [disabled]="loading" class="btn bg-primary">
+            <span
+              *ngIf="loading"
+              class="spinner-border spinner-border-sm mr-1"
+            ></span>
+            Sign In
+          </button>
+          &nbsp;&nbsp;&nbsp;
+          <a routerLink="/login" class="btn bg-primary">Cancel</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

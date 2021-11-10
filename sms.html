@@ -1,0 +1,16 @@
+<script>
+  function getParameterByName(name, url = window.location.href) {
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+      results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return "";
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+  }
+  var dep = getParameterByName("dep");
+  var arr = dep.split(",");
+  var str = arr[0];
+  var hID = arr[1];
+  var hName = arr[2];
+  window.location.href = `http://gudwil.live/#/${str}?hID=${hID}&hName=${hName}`;
+</script>
