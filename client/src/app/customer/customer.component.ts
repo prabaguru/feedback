@@ -90,7 +90,7 @@ export class customerComponent implements OnInit {
     this.loading = true;
     let mobNos = this.registerForm.value.mobile.trim();
     let msgString = `Hi, Request your feedback on your visit to ${hName},Your inputs will help us improve our service to you. Click here: ${dep},${hID},${hName} - WEISERMANNER.`;
-    this.whatappAPIReq(msgString);
+
     let smsUrl =
       "http://185.136.166.131/domestic/sendsms/bulksms.php?username=joykj&password=joykj@1&type=TEXT&sender=WEISER&mobile=" +
       mobNos +
@@ -109,8 +109,15 @@ export class customerComponent implements OnInit {
       done: function () {},
       success: function () {
         //console.log(JSON.stringify(data));
+        this.alertService.success("SMS sent successfully", true);
+        this.loading = false;
+        this.submitted = false;
+        this.registerForm.reset();
       },
-      error: function (xhr, status) {},
+      error: function (xhr, status) {
+        //this.alertService.error(status);
+        this.loading = false;
+      },
     });
     // this.http
     //   .get(smsUrl)
@@ -129,48 +136,48 @@ export class customerComponent implements OnInit {
     //   );
   }
 
-  whatappAPIReq(mess) {
-    var data = {
-      to: "+919980568567",
-      type: "hsm",
-      from: "aa4c8e7cee664341a22ef9bfd9f52477",
-      content: {
-        hsm: {
-          namespace: "61705ee7-6aa2-45f7-a847-41132871c315",
-          templateName: "gudwil_feedback_template",
-          language: {
-            policy: "deterministic",
-            code: "en",
-          },
-          params: [{ default: "Bob" }, { default: "tomorrow!" }],
-        },
-      },
-    };
+  // whatappAPIReq(mess) {
+  //   var data = {
+  //     to: "+919980568567",
+  //     type: "hsm",
+  //     from: "aa4c8e7cee664341a22ef9bfd9f52477",
+  //     content: {
+  //       hsm: {
+  //         namespace: "61705ee7-6aa2-45f7-a847-41132871c315",
+  //         templateName: "gudwil_feedback_template",
+  //         language: {
+  //           policy: "deterministic",
+  //           code: "en",
+  //         },
+  //         params: [{ default: "Bob" }, { default: "tomorrow!" }],
+  //       },
+  //     },
+  //   };
 
-    let aUrl = "https://conversations.messagebird.com/v1/send";
-    $.ajax({
-      data: data,
-      method: "POST",
-      dataType: "json",
-      cors: true,
-      secure: true,
-      headers: {
-        Authorization: "AccessKey" + "xviwR0ZGgwT8WVU5InhX0uUgy",
-        contentType: "application/json; charset=utf-8",
-        "Access-Control-Allow-Origin": "*",
-      },
-      beforeSend: function (xhr) {
-        xhr.setRequestHeader("Authorization", "Basic " + btoa(""));
-      },
-      url: aUrl,
-      crossDomain: true,
-      done: function () {},
-      success: function () {
-        console.log(JSON.stringify(data));
-      },
-      error: function (xhr, status) {},
-    });
-  }
+  //   let aUrl = "https://conversations.messagebird.com/v1/send";
+  //   $.ajax({
+  //     data: data,
+  //     method: "POST",
+  //     dataType: "json",
+  //     cors: true,
+  //     secure: true,
+  //     headers: {
+  //       Authorization: "AccessKey" + "xviwR0ZGgwT8WVU5InhX0uUgy",
+  //       contentType: "application/json; charset=utf-8",
+  //       "Access-Control-Allow-Origin": "*",
+  //     },
+  //     beforeSend: function (xhr) {
+  //       xhr.setRequestHeader("Authorization", "Basic " + btoa(""));
+  //     },
+  //     url: aUrl,
+  //     crossDomain: true,
+  //     done: function () {},
+  //     success: function () {
+  //       console.log(JSON.stringify(data));
+  //     },
+  //     error: function (xhr, status) {},
+  //   });
+  // }
 
   onFileChange(ev) {
     this.alertService.clear();
