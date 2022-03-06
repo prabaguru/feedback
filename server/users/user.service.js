@@ -75,7 +75,7 @@ async function create(userParam) {
     userParam.role +
     "</p><p>Registration Type:" +
     userParam.regType +
-    "</p><p>Login URL: http://gudwil.live</p>";
+    "</p><p>Login URL: www.gudwil.live</p>";
   main(mes, userParam.email).catch(console.error);
 }
 
@@ -133,9 +133,10 @@ async function main(mes, email) {
 
   // create reusable transporter object using the default SMTP transport
   let transporter = nodemailer.createTransport({
-    host: "smtp.gmail.com",
-    port: 465,
-    secure: true, // true for 465, false for other ports
+    // host: "smtp.gmail.com",
+    // port: 465,
+    // secure: true, // true for 465, false for other ports
+    service: "Gmail",
     auth: {
       user: "gudwil.matters@gmail.com", // generated ethereal user
       pass: "GudWill10on10$$$", // generated ethereal password
