@@ -133,10 +133,10 @@ async function main(mes, email) {
 
   // create reusable transporter object using the default SMTP transport
   let transporter = nodemailer.createTransport({
-    // host: "smtp.gmail.com",
-    // port: 465,
-    // secure: true, // true for 465, false for other ports
     service: "Gmail",
+    host: "smtp.gmail.com",
+    port: 465,
+    secure: true, // true for 465, false for other ports
     auth: {
       user: "gudwil.matters@gmail.com", // generated ethereal user
       pass: "GudWill10on10$$$", // generated ethereal password
