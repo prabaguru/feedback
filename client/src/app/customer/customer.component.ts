@@ -82,17 +82,17 @@ export class customerComponent implements OnInit {
     this.registerForm.value["department"] =
       this.shareData.getData("departMent");
     if (this.shareData.getData("departMent") == "OPD") {
-      dep = "http://gudwil.live/sms.html?dep=opdfeedback";
+      dep = "https://gudwil.live/sms.html?dep=opdfeedback";
     }
     if (this.shareData.getData("departMent") == "IPD") {
-      dep = "http://gudwil.live/sms.html?dep=ipdfeedback";
+      dep = "https://gudwil.live/sms.html?dep=ipdfeedback";
     }
     this.loading = true;
     let mobNos = this.registerForm.value.mobile.trim();
     let msgString = `Hi, Request your feedback on your visit to ${hName},Your inputs will help us improve our service to you. Click here: ${dep},${hID},${hName} - WEISERMANNER.`;
 
     let smsUrl =
-      "http://185.136.166.131/domestic/sendsms/bulksms.php?username=joykj&password=joykj@1&type=TEXT&sender=WEISER&mobile=" +
+      "https://185.136.166.131/domestic/sendsms/bulksms.php?username=joykj&password=joykj@1&type=TEXT&sender=WEISER&mobile=" +
       mobNos +
       "&message=" +
       msgString +
