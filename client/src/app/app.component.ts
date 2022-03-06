@@ -15,7 +15,7 @@ export class AppComponent implements OnInit {
     private router: Router,
     private authenticationService: AuthenticationService,
     private alertService: AlertService,
-    private shareData: sharedDataService
+    public shareData: sharedDataService
   ) {
     this.authenticationService.currentUser.subscribe(
       (x) => (this.currentUser = x)
