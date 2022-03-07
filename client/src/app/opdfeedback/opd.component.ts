@@ -107,7 +107,14 @@ export class opdFBComponent implements OnInit {
       Name: ["", [Validators.required]],
       //lName: ["", []],
       Email: ["", []],
-      Mobile: ["", [Validators.required]],
+      Mobile: [
+        "",
+        [
+          Validators.required,
+          Validators.pattern("^[0-9]*$"),
+          Validators.minLength(10),
+        ],
+      ],
       Gender: ["Male", []],
       DOB: ["", []],
       age: ["", []],
@@ -144,7 +151,9 @@ export class opdFBComponent implements OnInit {
     // stop here if form is invalid
 
     if (this.registrationForm.invalid) {
-      return (this.registrationForminvalid = true);
+      window.scroll(0, 0);
+      this.registrationForminvalid = true;
+      return;
     } else {
       this.registrationForminvalid = false;
     }

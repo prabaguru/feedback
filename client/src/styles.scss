@@ -270,11 +270,11 @@ body a:hover {
 
 .starrating > label:before {
   content: "\f005"; /* Star */
-  margin: 2px;
-  font-size: 3rem;
+  margin: 6px;
+  font-size: 2rem;
   font-family: FontAwesome;
   display: inline-block;
-  padding: 0px 0px 0px 10px;
+  padding: 0px;
 }
 
 .starrating > label {
@@ -289,6 +289,14 @@ body a:hover {
 .starrating > input:hover ~ label {
   color: #ffca08;
 } /* Set yellow color when star hover */
+
+.errred {
+  font-size: 10px !important;
+  color: red !important;
+  font-weight: 600 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
 
 // end radiobutton css
 

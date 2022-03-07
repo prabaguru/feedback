@@ -103,8 +103,15 @@
               data-parent="#accordion"
             >
               <div class="card-body">
+                <div class="mandtry" *ngIf="registrationForminvalid">
+                  <p>
+                    Some mandatory fields are missing, please check and resubmit
+                  </p>
+                </div>
                 <div class="form-group ginfowidth">
-                  <label for="Name">Name <span class="mandtry">*</span> </label>
+                  <label for="Name"
+                    ><strong>Name</strong> <span class="mandtry">*</span>
+                  </label>
                   <input
                     type="text"
                     formControlName="Name"
@@ -141,7 +148,7 @@
 
                 <div class="form-group ginfowidth">
                   <label for="Mobile"
-                    >Mobile <span class="mandtry">*</span>
+                    ><strong>Mobile</strong> <span class="mandtry">*</span>
                   </label>
                   <input
                     type="text"
@@ -157,11 +164,17 @@
                     <div *ngIf="f.Mobile.errors.required">
                       Mobile is required
                     </div>
+                    <div *ngIf="f.Mobile.errors.pattern">
+                      Only numbers Allowed
+                    </div>
+                    <div *ngIf="f.Mobile.errors.minlength">
+                      Mobile no must have 10 digits
+                    </div>
                   </div>
                 </div>
 
                 <div class="form-group ginfowidth">
-                  <label for="Email">Email </label>
+                  <label for="Email"><strong>Email</strong> </label>
                   <input
                     type="text"
                     formControlName="Email"
@@ -178,7 +191,7 @@
                 </div>
 
                 <div class="form-group ginfowidth">
-                  <label>Gender</label>&nbsp;-&nbsp;
+                  <label><strong>Gender</strong>&nbsp;</label><br />
                   <div class="form-check form-check-inline">
                     <input
                       class="form-check-input"
@@ -218,7 +231,7 @@
                 </div>
 
                 <div class="form-group ginfowidth">
-                  <label for="Pincode">Pincode </label>
+                  <label for="Pincode"><strong>Pincode</strong> </label>
                   <input
                     type="text"
                     formControlName="Pincode"
@@ -257,8 +270,8 @@
                 </div>
 
                 <div class="form-group ginfowidth">
-                  <label for="regType"
-                    >How did you come to know about Us
+                  <label for="regType" style="font-size: 14px"
+                    ><strong>How did you come to know about Us</strong>
                   </label>
                   <select
                     class="form-control"
@@ -284,7 +297,9 @@
                 </div>
 
                 <div class="form-group ginfowidth">
-                  <label for="IPDCONSULTATIONNo">IPD – Consultation No </label>
+                  <label for="IPDCONSULTATIONNo" style="font-size: 14px"
+                    ><strong>IPD – Consultation No</strong>
+                  </label>
                   <input
                     type="text"
                     formControlName="IPDCONSULTATIONNo"
@@ -327,6 +342,9 @@
             >
               <div class="card-body">
                 <div class="form-group mart20">
+                  <p *ngIf="submitted && f.Reception.errors" class="errred">
+                    Required
+                  </p>
                   <p class="mar0">
                     <strong>1. Reception: </strong>
                   </p>
@@ -374,6 +392,9 @@
                 </div>
 
                 <div class="form-group mart20">
+                  <p *ngIf="submitted && f.StaffCourtesy.errors" class="errred">
+                    Required
+                  </p>
                   <p class="mar0">
                     <strong>2. Staff Courtesy: </strong>
                   </p>
@@ -421,6 +442,12 @@
                 </div>
 
                 <div class="form-group mart20">
+                  <p
+                    *ngIf="submitted && f.AbilitytoansweryourQueries.errors"
+                    class="errred"
+                  >
+                    Required
+                  </p>
                   <p class="mar0">
                     <strong>3. Ability to answer your Queries: </strong>
                   </p>
@@ -470,6 +497,12 @@
                 </div>
 
                 <div class="form-group mart20">
+                  <p
+                    *ngIf="submitted && f.GeneralComfortandCleanliness.errors"
+                    class="errred"
+                  >
+                    Required
+                  </p>
                   <p class="mar0">
                     <strong>4. General Comfort & Cleanliness: </strong>
                   </p>
@@ -516,6 +549,9 @@
                 </div>
 
                 <div class="form-group mart20">
+                  <p *ngIf="submitted && f.CarebyNurse.errors" class="errred">
+                    Required
+                  </p>
                   <p class="mar0">
                     <strong>5. Care by Nurses: </strong>
                   </p>
@@ -574,6 +610,9 @@
                 </div>
 
                 <div class="form-group mart20">
+                  <p *ngIf="submitted && f.CarebyDoctor.errors" class="errred">
+                    Required
+                  </p>
                   <p class="mar0">
                     <strong>6. Care by Doctors: </strong>
                   </p>
@@ -632,6 +671,12 @@
                 </div>
 
                 <div class="form-group mart20">
+                  <p
+                    *ngIf="submitted && f.LaboratoryService.errors"
+                    class="errred"
+                  >
+                    Required
+                  </p>
                   <p class="mar0">
                     <strong>7. Laboratory Service: </strong>
                   </p>
@@ -678,6 +723,12 @@
                 </div>
 
                 <div class="form-group mart20">
+                  <p
+                    *ngIf="submitted && f.PharmacyService.errors"
+                    class="errred"
+                  >
+                    Required
+                  </p>
                   <p class="mar0">
                     <strong>8. Pharmacy Service: </strong>
                   </p>
@@ -782,6 +833,9 @@
                 </div> -->
 
                 <div class="form-group mart20">
+                  <p *ngIf="submitted && f.FoodService.errors" class="errred">
+                    Required
+                  </p>
                   <p class="mar0">
                     <strong>9. Food Service: </strong>
                   </p>
@@ -828,6 +882,12 @@
                 </div>
 
                 <div class="form-group mart20">
+                  <p
+                    *ngIf="submitted && f.AdmissionProcess.errors"
+                    class="errred"
+                  >
+                    Required
+                  </p>
                   <p class="mar0">
                     <strong>10. Admission Process: </strong>
                   </p>
@@ -874,6 +934,12 @@
                 </div>
 
                 <div class="form-group mart20">
+                  <p
+                    *ngIf="submitted && f.DischargeProcess.errors"
+                    class="errred"
+                  >
+                    Required
+                  </p>
                   <p class="mar0">
                     <strong>11. Discharge Process: </strong>
                   </p>
@@ -920,6 +986,12 @@
                 </div>
 
                 <div class="form-group mart20">
+                  <p
+                    *ngIf="submitted && f.RoomServiceFacilities.errors"
+                    class="errred"
+                  >
+                    Required
+                  </p>
                   <p class="mar0">
                     <strong>12. Room Service & Facilities: </strong>
                   </p>
@@ -966,6 +1038,9 @@
                 </div>
 
                 <div class="form-group mart20">
+                  <p *ngIf="submitted && f.CostVsService.errors" class="errred">
+                    Required
+                  </p>
                   <p class="mar0">
                     <strong>13. Cost Vs Service: </strong>
                   </p>
