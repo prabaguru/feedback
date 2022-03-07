@@ -189,62 +189,62 @@ body a:hover {
   font-size: 13px !important;
 }
 
-.star-rating {
-  font-family: "FontAwesome";
-  margin: 10px auto;
+// .star-rating {
+//   font-family: "FontAwesome";
+//   margin: 10px auto;
 
-  > fieldset {
-    border: none;
-    display: inline-block;
+//   > fieldset {
+//     border: none;
+//     display: inline-block;
 
-    &:not(:checked) {
-      > input {
-        position: absolute;
-        opacity: 0;
-        width: 0;
-        height: 0;
-      }
+//     &:not(:checked) {
+//       > input {
+//         position: absolute;
+//         opacity: 0;
+//         width: 0;
+//         height: 0;
+//       }
 
-      &:not(:checked) {
-        > input + img {
-          border-radius: 50%;
-          padding: 5px;
-          width: 35px;
-          height: 35px;
+//       &:not(:checked) {
+//         > input + img {
+//           border-radius: 50%;
+//           padding: 5px;
+//           width: 35px;
+//           height: 35px;
 
-          &:hover,
-          &:hover > input + img {
-            color: #000;
-            border: 1px solid #ffc10e;
-          }
-        }
-      }
+//           &:hover,
+//           &:hover > input + img {
+//             color: #000;
+//             border: 1px solid #ffc10e;
+//           }
+//         }
+//       }
 
-      > label {
-        padding: 0px 10px 0px 5px;
-        white-space: nowrap;
-        cursor: pointer;
-        color: #000;
-        top: -10px;
+//       > label {
+//         padding: 0px 10px 0px 5px;
+//         white-space: nowrap;
+//         cursor: pointer;
+//         color: #000;
+//         top: -10px;
 
-        &:hover,
-        &:hover ~ label {
-          color: #000;
-        }
-      }
-    }
+//         &:hover,
+//         &:hover ~ label {
+//           color: #000;
+//         }
+//       }
+//     }
 
-    > input:checked + img {
-      border: 3px solid #036;
-      border-radius: 50%;
-    }
+//     > input:checked + img {
+//       border: 3px solid #036;
+//       border-radius: 50%;
+//     }
 
-    > label:active {
-      position: relative;
-      top: 2px;
-    }
-  }
-}
+//     > label:active {
+//       position: relative;
+//       top: 2px;
+//     }
+//   }
+// }
 
 .heading {
   font-size: 25px;
@@ -262,6 +262,35 @@ body a:hover {
 .underline {
   text-decoration: underline;
 }
+//radiobutton css
+
+.starrating > input {
+  display: none;
+} /* Remove radio buttons */
+
+.starrating > label:before {
+  content: "\f005"; /* Star */
+  margin: 2px;
+  font-size: 3rem;
+  font-family: FontAwesome;
+  display: inline-block;
+  padding: 0px 0px 0px 10px;
+}
+
+.starrating > label {
+  color: #999999; /* Start color when not clicked */
+  font-size: 13px;
+}
+
+.starrating > input:checked ~ label {
+  color: #ffca08;
+} /* Set yellow color when star checked */
+
+.starrating > input:hover ~ label {
+  color: #ffca08;
+} /* Set yellow color when star hover */
+
+// end radiobutton css
 
 @media (max-width: 768px) {
   .ginfowidth {
@@ -271,60 +300,60 @@ body a:hover {
     overflow-x: hidden;
   }
 
-  .star-rating {
-    font-family: "FontAwesome";
-    margin: 10px auto;
+  // .star-rating {
+  //   font-family: "FontAwesome";
+  //   margin: 10px auto;
 
-    > fieldset {
-      border: none;
-      display: inline-block;
+  //   > fieldset {
+  //     border: none;
+  //     display: inline-block;
 
-      &:not(:checked) {
-        > input {
-          position: absolute;
-          opacity: 0;
-          width: 0;
-          height: 0;
-        }
+  //     &:not(:checked) {
+  //       > input {
+  //         position: absolute;
+  //         opacity: 0;
+  //         width: 0;
+  //         height: 0;
+  //       }
 
-        &:not(:checked) {
-          > input + img {
-            border-radius: 50%;
-            padding: 4px;
-            width: 35px;
-            height: 35px;
+  //       &:not(:checked) {
+  //         > input + img {
+  //           border-radius: 50%;
+  //           padding: 4px;
+  //           width: 35px;
+  //           height: 35px;
 
-            &:hover,
-            &:hover > input + img {
-              color: #000;
-              border: none;
-            }
-          }
-        }
+  //           &:hover,
+  //           &:hover > input + img {
+  //             color: #000;
+  //             border: none;
+  //           }
+  //         }
+  //       }
 
-        > label {
-          padding: 0px 10px 0px 5px;
-          white-space: nowrap;
-          cursor: pointer;
-          color: #000;
-          top: -10px;
+  //       > label {
+  //         padding: 0px 10px 0px 5px;
+  //         white-space: nowrap;
+  //         cursor: pointer;
+  //         color: #000;
+  //         top: -10px;
 
-          &:hover,
-          &:hover ~ label {
-            color: #000;
-          }
-        }
-      }
+  //         &:hover,
+  //         &:hover ~ label {
+  //           color: #000;
+  //         }
+  //       }
+  //     }
 
-      > input:checked + img {
-        border: 3px solid #036;
-        border-radius: 50%;
-      }
+  //     > input:checked + img {
+  //       border: 3px solid #036;
+  //       border-radius: 50%;
+  //     }
 
-      > label:active {
-        position: relative;
-        top: 2px;
-      }
-    }
-  }
+  //     > label:active {
+  //       position: relative;
+  //       top: 2px;
+  //     }
+  //   }
+  // }
 }

@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const schema = new Schema({
-  HowdidyoucometoknowaboutUs: { type: String, required: true },
+  HowdidyoucometoknowaboutUs: { type: String, required: false },
   Reception: { type: Number, required: true },
   StaffCourtesy: { type: Number, required: true },
   AbilitytoansweryourQueries: { type: Number, required: true },
@@ -20,7 +20,7 @@ const schema = new Schema({
   CostVsService: { type: Number, required: true },
   Comments: { type: String, required: false },
   WillyourecommendUs: { type: String, required: false },
-  Email: { type: String, required: true },
+  Email: { type: String, required: false },
   Name: { type: String, required: true },
   Age: { type: Number, required: false },
   Pincode: { type: Number, required: false },
@@ -28,7 +28,7 @@ const schema = new Schema({
   DOB: { type: String, required: false },
   Gender: { type: String, required: false },
   hospital_Id: Schema.ObjectId,
-  IPDCONSULTATIONNo: { type: String, required: true },
+  IPDCONSULTATIONNo: { type: String, required: false },
   createdDate: { type: Date, default: Date.now },
 });
 

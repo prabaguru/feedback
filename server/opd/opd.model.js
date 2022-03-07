@@ -16,7 +16,7 @@ const schema = new Schema({
   Willyourevisitus: { type: String, required: false },
   WillyourecommendUs: { type: String, required: false },
   Howdidyouknowaboutus: { type: String, required: false },
-  Email: { type: String, required: true },
+  Email: { type: String, required: false },
   Name: { type: String, required: true },
   Mobile: { type: Number, required: true },
   DOB: { type: String, required: false },

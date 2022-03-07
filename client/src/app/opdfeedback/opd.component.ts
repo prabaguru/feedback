@@ -35,7 +35,7 @@ export class opdFBComponent implements OnInit {
   gender = ["Male", "Female", "Transgender"];
   specialityVisited = ["OPD – Speciality visited", "OPD Department visited"];
   tomorrow = new Date();
-  minDate = new Date("01/01/1970");
+  minDate = new Date("01/01/1950");
   registrationForminvalid: boolean = false;
   succesFB: boolean = true;
   hospital_Id: string;
@@ -87,18 +87,18 @@ export class opdFBComponent implements OnInit {
     // }
     this.alertService.clear();
     this.registrationForm = this.formBuilder.group({
-      visitorType: ["First Timer", Validators.required],
-      PatientType: ["I am the Patient", Validators.required],
+      visitorType: ["First Timer"],
+      PatientType: ["I am the Patient"],
       department: ["", []],
-      Reception: ["5", Validators.required],
-      StaffCourtesy: ["5", Validators.required],
-      AbilitytoansweryourQueries: ["5", Validators.required],
-      GeneralComfortandCleanliness: ["5", Validators.required],
-      WaitingtimeforDoctor: ["5", Validators.required],
-      CarebyNurse: ["5", Validators.required],
-      CarebyDoctor: ["5", Validators.required],
-      LaboratoryService: ["5", Validators.required],
-      PharmacyService: ["5", Validators.required],
+      Reception: ["", Validators.required],
+      StaffCourtesy: ["", Validators.required],
+      AbilitytoansweryourQueries: ["", Validators.required],
+      GeneralComfortandCleanliness: ["", Validators.required],
+      WaitingtimeforDoctor: ["", Validators.required],
+      CarebyNurse: ["", Validators.required],
+      CarebyDoctor: ["", Validators.required],
+      LaboratoryService: ["", Validators.required],
+      PharmacyService: ["", Validators.required],
       Comments: ["", []],
       Howdidyouknowaboutus: ["Online", []],
       Willyourevisitus: [false, []],
@@ -106,7 +106,7 @@ export class opdFBComponent implements OnInit {
       Willyousharehospitallink: [false, []],
       Name: ["", [Validators.required]],
       //lName: ["", []],
-      Email: ["", [Validators.required]],
+      Email: ["", []],
       Mobile: ["", [Validators.required]],
       Gender: ["Male", []],
       DOB: ["", []],
@@ -116,7 +116,7 @@ export class opdFBComponent implements OnInit {
     });
 
     this.registrationFormApp = this.formBuilder.group({
-      rating: ["5", []],
+      rating: ["1", []],
       Comments: ["", []],
       name: ["", []],
     });
@@ -142,6 +142,7 @@ export class opdFBComponent implements OnInit {
     this.alertService.clear();
 
     // stop here if form is invalid
+
     if (this.registrationForm.invalid) {
       return (this.registrationForminvalid = true);
     } else {
@@ -176,6 +177,8 @@ export class opdFBComponent implements OnInit {
       Pincode: this.registrationForm.value.Pincode,
       hospital_Id: this.hospital_Id,
       Howdidyouknowaboutus: this.registrationForm.value.Howdidyouknowaboutus,
+      visitorType: this.registrationForm.value.visitorType,
+      PatientType: this.registrationForm.value.PatientType,
     };
     this.userService
       .opdFeedBack(Fb)
