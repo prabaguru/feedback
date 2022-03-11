@@ -89,16 +89,16 @@ export class opdFBComponent implements OnInit {
     this.registrationForm = this.formBuilder.group({
       visitorType: ["First Timer"],
       PatientType: ["I am the Patient"],
-      department: ["", []],
-      Reception: ["", Validators.required],
-      StaffCourtesy: ["", Validators.required],
-      AbilitytoansweryourQueries: ["", Validators.required],
-      GeneralComfortandCleanliness: ["", Validators.required],
-      WaitingtimeforDoctor: ["", Validators.required],
-      CarebyNurse: ["", Validators.required],
-      CarebyDoctor: ["", Validators.required],
-      LaboratoryService: ["", Validators.required],
-      PharmacyService: ["", Validators.required],
+      department: ["5", []],
+      Reception: ["5", Validators.required],
+      StaffCourtesy: ["5", Validators.required],
+      AbilitytoansweryourQueries: ["5", Validators.required],
+      GeneralComfortandCleanliness: ["5", Validators.required],
+      WaitingtimeforDoctor: ["5", Validators.required],
+      CarebyNurse: ["5", Validators.required],
+      CarebyDoctor: ["5", Validators.required],
+      LaboratoryService: ["5", Validators.required],
+      PharmacyService: ["5", Validators.required],
       Comments: ["", []],
       Howdidyouknowaboutus: ["Online", []],
       Willyourevisitus: [false, []],
@@ -123,7 +123,7 @@ export class opdFBComponent implements OnInit {
     });
 
     this.registrationFormApp = this.formBuilder.group({
-      rating: ["1", []],
+      rating: ["", []],
       Comments: ["", []],
       name: ["", []],
     });
