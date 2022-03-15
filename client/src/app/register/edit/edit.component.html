@@ -132,11 +132,21 @@
           </div>
           <div class="form-group">
             <label for="address">Address</label>
-            <input type="text" formControlName="address" class="form-control" />
+            <input
+              type="text"
+              formControlName="address"
+              maxlength="300"
+              class="form-control"
+            />
           </div>
           <div class="form-group">
             <label for="Pincode">Pincode</label>
-            <input type="text" formControlName="Pincode" class="form-control" />
+            <input
+              type="text"
+              formControlName="Pincode"
+              maxlength="10"
+              class="form-control"
+            />
           </div>
           <div class="form-group">
             <button [disabled]="loading" class="btn bg-primary">

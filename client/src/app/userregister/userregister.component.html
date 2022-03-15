@@ -10,7 +10,7 @@
             formControlName="firstName"
             class="form-control"
             [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }"
-            maxlength="100"
+            maxlength="50"
             [pattern]="'^[a-zA-Z0-9 \'\-]+$'"
           />
           <input type="hidden" formControlName="hospital_id" />
@@ -137,7 +137,7 @@
               *ngIf="loading"
               class="spinner-border spinner-border-sm mr-1"
             ></span>
-            Sign In
+            Add User
           </button>
           &nbsp;&nbsp;&nbsp;
           <button (click)="resetForm()" class="btn btn-primary" type="reset">
