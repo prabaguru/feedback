@@ -35,7 +35,7 @@ export class customerComponent implements OnInit {
     this.registerForm = this.formBuilder.group({
       //name: ['', Validators.required],
       //email: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')]],
-      mobile: ["", [Validators.required, Validators.pattern("^[0-9,]*$")]],
+      mobile: ["", [Validators.required, Validators.pattern("^[-+0-9,' ']*$")]],
       //address: ['',[]]
     });
   }
@@ -46,6 +46,7 @@ export class customerComponent implements OnInit {
   }
 
   onSubmit() {
+    this.alertService.clear();
     let dep: string = "";
     let hID: string = "";
     let hName: string = "";
@@ -71,11 +72,22 @@ export class customerComponent implements OnInit {
     let Nsting: string = "Give your Feedfack";
 
     this.submitted = true;
-
+    let mobNoArr = [];
+    let mobNos: string = "";
+    let replaceHySp = this.registerForm.value.mobile.replaceAll(/-|\s/g, "");
+    //let repPlus = rephypspace.replaceAll(/\+/g, "");
+    let array = replaceHySp.split(",");
+    for (let i = 0; i < array.length; i++) {
+      if (array[i].length >= 10 && array[i].length <= 13) {
+        mobNoArr.push(array[i]);
+      }
+    }
+    mobNos = mobNoArr.join();
+    //console.log(mobNos);
     // reset alerts on submit
     this.alertService.clear();
 
-    // stop here if form is invalid
+    //stop here if form is invalid
     if (this.registerForm.invalid) {
       return;
     }
@@ -88,25 +100,21 @@ export class customerComponent implements OnInit {
       dep = "http://gudwil.live/sms.html?dep=ipdfeedback";
     }
     this.loading = true;
-    let mobNos = this.registerForm.value.mobile.trim();
+    //let mobNos = this.registerForm.value.mobile.trim();
     let msgString = `Hi, Request your feedback on your visit to ${hName},Your inputs will help us improve our service to you. Click here: ${dep},${hID},${hName} - WEISERMANNER.`;
 
-    let smsUrl =
-      "http://185.136.166.131/domestic/sendsms/bulksms.php?username=joykj&password=joykj@1&type=TEXT&sender=WEISER&mobile=" +
-      mobNos +
-      "&message=" +
-      msgString +
-      "&entityId=1601335161674716856&templateId=1607100000000125850";
+    let smsUrl = `http://185.136.166.131/domestic/sendsms/bulksms.php?username=joykj&password=joykj@1&type=TEXT&sender=WEISER&mobile=${mobNos}&message=${msgString}&entityId=1601335161674716856&templateId=1607100000000125850`;
     this.shareData.setData("smsFlag", true);
     this.alertService.success("SMS sent successfully", true);
     this.loading = false;
     this.submitted = false;
     this.registerForm.reset();
     $.ajax({
-      method: "GET",
+      type: "GET",
       url: smsUrl,
       crossDomain: true,
-      done: function () {},
+      dataType: "jsonp",
+      jsonpCallback: "callback",
       success: function () {
         //console.log(JSON.stringify(data));
         this.alertService.success("SMS sent successfully", true);
@@ -119,22 +127,23 @@ export class customerComponent implements OnInit {
         this.loading = false;
       },
     });
-    // this.http
-    //   .get(smsUrl)
-    //   .pipe(first())
-    //   .subscribe(
-    //     () => {
-    //       this.alertService.success("SMS sent successfully", true);
-    //       this.loading = false;
-    //       this.submitted = false;
-    //       this.registerForm.reset();
-    //     },
-    //     (error) => {
-    //       this.alertService.error(error);
-    //       this.loading = false;
-    //     }
-    //   );
   }
+  //   this.http
+  //     .get(smsUrl)
+  //     .pipe(first())
+  //     .subscribe(
+  //       () => {
+  //         this.alertService.success("SMS sent successfully", true);
+  //         this.loading = false;
+  //         this.submitted = false;
+  //         this.registerForm.reset();
+  //       },
+  //       (error) => {
+  //         this.alertService.error(error);
+  //         this.loading = false;
+  //       }
+  //     );
+  // }
 
   // whatappAPIReq(mess) {
   //   var data = {

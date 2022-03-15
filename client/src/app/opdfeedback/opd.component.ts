@@ -89,7 +89,7 @@ export class opdFBComponent implements OnInit {
     this.registrationForm = this.formBuilder.group({
       visitorType: ["First Timer"],
       PatientType: ["I am the Patient"],
-      department: ["5", []],
+      department: ["", []],
       Reception: ["5", Validators.required],
       StaffCourtesy: ["5", Validators.required],
       AbilitytoansweryourQueries: ["5", Validators.required],

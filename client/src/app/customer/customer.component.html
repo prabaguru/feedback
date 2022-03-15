@@ -45,12 +45,15 @@
           <div *ngIf="submitted && f.mobile.errors" class="invalid-feedback">
             <div *ngIf="f.mobile.errors.required">Mobile no is required</div>
             <div *ngIf="f.mobile.errors.pattern">
-              Only numbers and comma allowed
+              <p>
+                Some unusual numbers are found...<br />Enter numbers follwed by
+                comma. Eg: (9980568567,9786310001...)
+              </p>
             </div>
           </div>
         </div>
         <div class="form-group">
-          <label>Upload excel sheet with nos..</label>
+          <label>Upload excel sheet with nos... </label>
           <p>
             <input type="file" (change)="onFileChange($event)" id="fileexcel" />
           </p>
@@ -76,6 +79,9 @@
           <button class="btn bg-primary" id="smsreset" (click)="formreset()">
             Reset
           </button>
+          <a href="mobnos.xlsx" download style="font-size: 12px">
+            &nbsp;Download sample excel file to upload mobile nos...</a
+          >
         </div>
       </form>
     </div>
