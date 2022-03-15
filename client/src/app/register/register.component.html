@@ -10,15 +10,18 @@
           <input
             type="text"
             formControlName="firstName"
-            maxlength="200"
+            maxlength="30"
             class="form-control"
             [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }"
-            maxlength="200"
+            [pattern]="'^[a-zA-Z0-9 \'\-]+$'"
           />
           <input type="hidden" formControlName="role" />
           <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
             <div *ngIf="f.firstName.errors.required">
               Hospital Name is required
+            </div>
+            <div *ngIf="f.firstName.errors.pattern">
+              Special characters is restricted
             </div>
           </div>
         </div>
