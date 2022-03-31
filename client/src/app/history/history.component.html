@@ -176,38 +176,44 @@
             </button>
           </div>
           <div class="modal-body">
+            <!-- <p>
+              <button (click)="(exportReportToExcel)" class="btn btn-primary">
+                Export
+              </button>
+            </p> -->
             <div
               class="table-responsive"
               *ngIf="shareData.getData('departMent') == 'OPD'"
             >
               <table class="table table-striped">
-                <thead>
-                  <tr>
-                    <th scope="col">Name</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Mobile</th>
-                    <th scope="col">Gender</th>
-                    <th scope="col">Pincode</th>
-                    <th scope="col">DOB/Age</th>
-                    <th scope="col">Comments</th>
-                    <th scope="col">OPDVisited/OPDConsultationNumber</th>
-                    <th scope="col">Feedback Submitted</th>
-                  </tr>
-                </thead>
                 <tbody>
-                  <tr *ngFor="let user of opdfeedbackdata">
-                    <td>{{ user.Name }}</td>
-                    <td>{{ user.Email }}</td>
-                    <td>{{ user.Mobile }}</td>
-                    <td>{{ user.Gender }}</td>
-                    <td>{{ user.Pincode }}</td>
-                    <td>
-                      {{ user.DOB | date: "dd/MM/yyyy" }} - {{ user.Age }} Years
-                    </td>
-                    <td>{{ user.Comments }}</td>
-                    <td>{{ user.OPDVisitedorOPDConsultationNumber }}</td>
-                    <td>{{ user.createdDate | date: "dd/MM/yyyy - HH:mm" }}</td>
-                  </tr>
+                  <span *ngFor="let user of opdfeedbackdata">
+                    <tr class="d-flex">
+                      <td>Name: {{ user.Name }}</td>
+                      <td>Email {{ user.Email }}</td>
+                      <td>Mobile: {{ user.Mobile }}</td>
+                      <td>Gender: {{ user.Gender }}</td>
+                      <td>Pincode: {{ user.Pincode }}</td>
+                      <td>
+                        DOB: {{ user.DOB | date: "dd/MM/yyyy" }} -
+                        {{ user.Age }} Years
+                      </td>
+                      <td>
+                        ConsultationNo:
+                        {{ user.OPDVisitedorOPDConsultationNumber }}
+                      </td>
+                      <td>
+                        Submitted on:
+                        {{ user.createdDate | date: "dd/MM/yyyy - HH:mm" }}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td colspan="8">
+                        <h6>Comments by {{ user.Name }}</h6>
+                        {{ user.Comments }}
+                      </td>
+                    </tr>
+                  </span>
                 </tbody>
               </table>
             </div>
@@ -217,39 +223,38 @@
               *ngIf="shareData.getData('departMent') == 'IPD'"
             >
               <table class="table table-striped">
-                <thead>
-                  <tr>
-                    <th scope="col">Name</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Mobile</th>
-                    <th scope="col">Gender</th>
-                    <th scope="col">Pincode</th>
-                    <th scope="col">DOB/Age</th>
-                    <th scope="col">HowdidyoucometoknowaboutUs</th>
-                    <th scope="col">IPD Consultation No</th>
-                    <th scope="col">Recommended Doctors</th>
-                    <th scope="col">Recommended Nurses</th>
-                    <th scope="col">Comments</th>
-                    <th scope="col">Feedback Submitted</th>
-                  </tr>
-                </thead>
                 <tbody>
-                  <tr *ngFor="let row of ipdfeedbackdata">
-                    <td>{{ row.Name }}</td>
-                    <td>{{ row.Email }}</td>
-                    <td>{{ row.Mobile }}</td>
-                    <td>{{ row.Gender }}</td>
-                    <td>{{ row.Pincode }}</td>
-                    <td>
-                      {{ row.DOB | date: "dd/MM/yyyy" }} - {{ row.Age }} Years
-                    </td>
-                    <td>{{ row.HowdidyoucometoknowaboutUs }}</td>
-                    <td>{{ row.IPDCONSULTATIONNo }}</td>
-                    <td>{{ row.doctors }}</td>
-                    <td>{{ row.nurses }}</td>
-                    <td>{{ row.Comments }}</td>
-                    <td>{{ row.createdDate | date: "dd/MM/yyyy - HH:mm" }}</td>
-                  </tr>
+                  <span *ngFor="let row of ipdfeedbackdata">
+                    <tr>
+                      <td>Name: {{ row.Name }}</td>
+                      <td>Email: {{ row.Email }}</td>
+                      <td>Mobile: {{ row.Mobile }}</td>
+                      <td>Gender: {{ row.Gender }}</td>
+                      <td>Pincode: {{ row.Pincode }}</td>
+                      <td>
+                        DOB: {{ row.DOB | date: "dd/MM/yyyy" }} -
+                        {{ row.Age }} Years
+                      </td>
+                      <td>
+                        HowdidyoucometoknowaboutUs:
+                        {{ row.HowdidyoucometoknowaboutUs }}
+                      </td>
+                      <td>IPDCONSULTATIONNo: {{ row.IPDCONSULTATIONNo }}</td>
+                      <td>Recommended Doctors: {{ row.doctors }}</td>
+                      <td>Recommended Nurses: {{ row.nurses }}</td>
+
+                      <td>
+                        Feedback Submitted:
+                        {{ row.createdDate | date: "dd/MM/yyyy - HH:mm" }}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td colspan="11">
+                        <h6>Comments by {{ row.Name }}</h6>
+                        {{ row.Comments }}
+                      </td>
+                    </tr>
+                  </span>
                 </tbody>
               </table>
             </div>

@@ -67,7 +67,10 @@ body a:hover {
 #wrapper.toggled #sidebar-wrapper {
   margin-left: 0;
 }
-
+.modal-lg,
+.modal-xl {
+  max-width: 100% !important;
+}
 @media (min-width: 768px) {
   #sidebar-wrapper {
     margin-left: 0;

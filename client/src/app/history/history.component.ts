@@ -179,9 +179,9 @@ export class HistoryComponent implements OnInit, OnDestroy {
       this.pieChart = {
         chartType: "BarChart",
         dataTable: [
-          ["Feedback", "Recieved"],
-          ["OPD", this.opdfeedbackdata.length],
-          ["IPD", this.ipdfeedbackdata.length],
+          ["Feedback", "Recieved", { role: "style" }],
+          ["OPD", this.opdfeedbackdata.length, "#b87333"],
+          ["IPD", this.ipdfeedbackdata.length, "#036"],
         ],
         options: {
           title: "Feedback Recieved Till Date",
