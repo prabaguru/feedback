@@ -55,8 +55,8 @@ export class editUserComponent implements OnInit, OnDestroy {
           Validators.minLength(10),
         ],
       ],
-      password: ["", [Validators.minLength(6)]],
-      confirmpassword: ["", []],
+      password: ["", [Validators.required, Validators.minLength(6)]],
+      confirmpassword: ["", [Validators.required]],
       address: [this.authenticationService.currentUserValue.address, []],
       Pincode: [this.authenticationService.currentUserValue.Pincode, []],
     });

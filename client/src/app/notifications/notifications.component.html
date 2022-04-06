@@ -1,0 +1,56 @@
+﻿<h3>Notification Templates</h3>
+
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Action</th>
+        <th scope="col">FirstName</th>
+        <th scope="col">Email</th>
+        <th scope="col">Mobile</th>
+        <th scope="col">Reg Type</th>
+        <th scope="col">Role</th>
+        <th scope="col">LastLogin</th>
+        <th scope="col">CreatedDate</th>
+      </tr>
+    </thead>
+    <div class="center" *ngIf="users.length == 0" align="center">
+      <strong>No Users Found</strong>
+    </div>
+    <tbody>
+      <tr *ngFor="let user of users; let i = index">
+        <th scope="row">
+          <a
+            href="javascript:void();"
+            data-toggle="modal"
+            data-backdrop="static"
+            data-keyboard="false"
+            data-target="#exampleModalLong"
+            (click)="editUser(user)"
+          >
+            <i class="fa fa-edit" aria-hidden="true"></i
+          ></a>
+          &nbsp;&nbsp;&nbsp;
+          <a
+            href="javascript:void();"
+            data-toggle="modal"
+            data-backdrop="static"
+            data-keyboard="false"
+            data-target="#exampleModal"
+            (click)="getUserID(user.id)"
+            *ngIf="user.status"
+          >
+            <i class="fa fa-trash" aria-hidden="true"></i>
+          </a>
+        </th>
+        <td>{{ user.firstName }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.mobile }}</td>
+        <td>{{ user.regType }}</td>
+        <td>{{ user.role }}</td>
+        <td>{{ user.lastLogin | date: "dd/MM/yyyy - HH:mm" }}</td>
+        <td>{{ user.createdDate | date: "dd/MM/yyyy" }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

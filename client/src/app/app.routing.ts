@@ -11,7 +11,7 @@ import { ipdFBComponent } from "./ipdfeedback";
 import { AuthGuard } from "./_helpers";
 import { HistoryComponent } from "./history";
 import { performanceComponent } from "./performance";
-
+import { notificationsComponent } from "./notifications";
 const routes: Routes = [
   { path: "", component: HomeComponent, canActivate: [AuthGuard] },
   { path: "login", component: LoginComponent },
@@ -27,6 +27,11 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   { path: "sendsms", component: customerComponent, canActivate: [AuthGuard] },
+  {
+    path: "notifications",
+    component: notificationsComponent,
+    canActivate: [AuthGuard],
+  },
   { path: "opdfeedback", component: opdFBComponent },
   { path: "ipdfeedback", component: ipdFBComponent },
   { path: "history", component: HistoryComponent },
