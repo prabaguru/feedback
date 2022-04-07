@@ -27,8 +27,12 @@ import { Ng2GoogleChartsModule } from "ng2-google-charts";
 import { LoaderComponent } from "./loader/loader.component";
 import { performanceComponent } from "./performance/performance.component";
 import { notificationsComponent } from "./notifications/notifications.component";
+import { addComponent } from "./notifications/add/add.component";
+import { editComponent } from "./notifications/edit/edit.component";
+
 /* services */
 import { LoaderInterceptorService } from "./_services/loader-interceptor.service";
+import { CKEditorModule } from "@ckeditor/ckeditor5-angular";
 @NgModule({
   imports: [
     BrowserModule,
@@ -43,6 +47,7 @@ import { LoaderInterceptorService } from "./_services/loader-interceptor.service
     MatNativeDateModule,
     BrowserAnimationsModule,
     Ng2GoogleChartsModule,
+    CKEditorModule,
   ],
   declarations: [
     AppComponent,
@@ -59,6 +64,8 @@ import { LoaderInterceptorService } from "./_services/loader-interceptor.service
     LoaderComponent,
     performanceComponent,
     notificationsComponent,
+    addComponent,
+    editComponent,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

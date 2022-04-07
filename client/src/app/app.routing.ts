@@ -12,6 +12,9 @@ import { AuthGuard } from "./_helpers";
 import { HistoryComponent } from "./history";
 import { performanceComponent } from "./performance";
 import { notificationsComponent } from "./notifications";
+import { addComponent } from "./notifications";
+import { editComponent } from "./notifications";
+
 const routes: Routes = [
   { path: "", component: HomeComponent, canActivate: [AuthGuard] },
   { path: "login", component: LoginComponent },
@@ -30,6 +33,16 @@ const routes: Routes = [
   {
     path: "notifications",
     component: notificationsComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: "addnotification",
+    component: addComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: "editnotification",
+    component: editComponent,
     canActivate: [AuthGuard],
   },
   { path: "opdfeedback", component: opdFBComponent },

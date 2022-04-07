@@ -1,6 +1,6 @@
 ﻿import { Component, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
 import { first } from "rxjs/operators";
-
 import { User } from "@/_models";
 import {
   AlertService,
@@ -13,49 +13,40 @@ import { GoogleChartInterface } from "ng2-google-charts";
 @Component({ templateUrl: "notifications.component.html" })
 export class notificationsComponent implements OnInit {
   currentUser: User;
-  users = [];
-  user;
+  notifications = [];
   loading = false;
-  userID;
   constructor(
     private authenticationService: AuthenticationService,
     private userService: UserService,
     private alertService: AlertService,
-    private shareData: sharedDataService
+    private shareData: sharedDataService,
+    private router: Router
   ) {
     this.currentUser = this.authenticationService.currentUserValue;
-    this.alertService.clear();
+    //this.alertService.clear();
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.notifications.length = 0;
+    this.loadAllNotifications();
+  }
 
-  // deleteUser() {
-  //   this.userService
-  //     .updateSingle(this.userID)
-  //     .pipe(first())
-  //     .subscribe(
-  //       () => {
-  //         this.alertService.success("Deleted successfully", true);
-  //         //this.users = this.users.filter(arr => arr._id == id);
-  //         this.loadAllUsers();
-  //       },
-  //       (error) => {
-  //         this.alertService.error(error);
-  //       }
-  //     );
-  // }
-
-  loadAllUsers() {
+  sendEditData(data: any) {
+    this.shareData.deleteData("editdata");
+    this.shareData.setData("editdata", data);
+    this.router.navigate(["/editnotification"]);
+  }
+  loadAllNotifications() {
     let obj = {
       id: this.currentUser._id,
     };
     this.userService
-      .getAllById(obj)
+      .getAllNotificationsById(obj)
       .pipe(first())
       .subscribe(
-        (users) => {
-          this.users = users;
-          console.log(this.users);
+        (data) => {
+          this.notifications = data;
+          //console.log(this.users);
           //this.users = this.users.filter(arr => arr.hospital_id == this.currentUser._id);
         },
         (error) => {
@@ -75,7 +66,7 @@ export class notificationsComponent implements OnInit {
       role: editForm.value.role,
       password: editForm.value.password,
       mobile: editForm.value.mobile,
-      id: this.user.id,
+      id: this.notifications,
       status: editForm.value.status,
     };
     this.loading = true;
@@ -96,4 +87,20 @@ export class notificationsComponent implements OnInit {
         }
       );
   }
+
+  // deleteUser() {
+  //   this.userService
+  //     .updateSingle(this.userID)
+  //     .pipe(first())
+  //     .subscribe(
+  //       () => {
+  //         this.alertService.success("Deleted successfully", true);
+  //         //this.users = this.users.filter(arr => arr._id == id);
+  //         this.loadAllUsers();
+  //       },
+  //       (error) => {
+  //         this.alertService.error(error);
+  //       }
+  //     );
+  // }
 }

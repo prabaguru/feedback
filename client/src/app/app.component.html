@@ -41,12 +41,7 @@
         "
         >IPD</a
       >
-      <a
-        routerLink="/history"
-        class="list-group-item list-group-item-action bg-primary"
-        *ngIf="currentUser.role === 'SUPER-ADMIN'"
-        >History</a
-      >
+
       <a
         routerLink="/performance"
         class="list-group-item list-group-item-action bg-primary"
@@ -54,13 +49,33 @@
         >App Performance</a
       >
 
-      <a
-        data-toggle="modal"
-        data-target="#exampleModalfb"
-        class="list-group-item list-group-item-action bg-primary"
-        style="cursor: pointer"
-        >Feedback-Questions</a
-      >
+      <div class="dropdown">
+        <button
+          class="list-group-item list-group-item-action bg-primary dropdown-toggle"
+          type="button"
+          id="dropdownMenuButton"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+        >
+          History
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a
+            routerLink="/history"
+            class="dropdown-item"
+            *ngIf="currentUser.role === 'SUPER-ADMIN'"
+            >History</a
+          >
+          <a
+            data-toggle="modal"
+            data-target="#exampleModalfb"
+            class="dropdown-item"
+            >Feedback-Questions</a
+          >
+        </div>
+      </div>
+
       <a
         routerLink="/notifications"
         class="list-group-item list-group-item-action bg-primary"

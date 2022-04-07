@@ -7,6 +7,25 @@ import { User } from "@/_models";
 export class UserService {
   constructor(private http: HttpClient) {}
 
+  //notifications
+
+  createNotifications(payload) {
+    return this.http.post(
+      `${environment.apiUrl}/notifications/create`,
+      payload
+    );
+  }
+  updateNotifications(payload) {
+    return this.http.put(`${environment.apiUrl}/notifications/update`, payload);
+  }
+  getAllNotificationsById(searchParams) {
+    const options = { params: new HttpParams({ fromString: searchParams }) };
+    return this.http.get(
+      `${environment.apiUrl}/notifications/getById`,
+      options
+    );
+  }
+
   getAll() {
     return this.http.get<User[]>(`${environment.apiUrl}/users`);
   }
