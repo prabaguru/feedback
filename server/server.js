@@ -20,6 +20,7 @@ app.use("/ipd", require("./ipd/ipd.controller"));
 app.use("/performance", require("./performance/apper.controller"));
 app.use("/sendsms", require("./sendsms/sms.controller"));
 app.use("/customers", require("./customers/customer.controller"));
+app.use("/notifications", require("./notifications/notifications.controller"));
 // global error handler
 app.use(errorHandler);
 
