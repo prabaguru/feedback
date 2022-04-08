@@ -75,7 +75,6 @@ export class customerComponent implements OnInit {
     let mobNoArr = [];
     let mobNos: string = "";
     let replaceHySp = this.registerForm.value.mobile.replaceAll(/-|\s/g, "");
-    //let repPlus = rephypspace.replaceAll(/\+/g, "");
     let array = replaceHySp.split(",");
     for (let i = 0; i < array.length; i++) {
       if (array[i].length >= 10 && array[i].length <= 13) {
@@ -128,65 +127,6 @@ export class customerComponent implements OnInit {
       },
     });
   }
-  //   this.http
-  //     .get(smsUrl)
-  //     .pipe(first())
-  //     .subscribe(
-  //       () => {
-  //         this.alertService.success("SMS sent successfully", true);
-  //         this.loading = false;
-  //         this.submitted = false;
-  //         this.registerForm.reset();
-  //       },
-  //       (error) => {
-  //         this.alertService.error(error);
-  //         this.loading = false;
-  //       }
-  //     );
-  // }
-
-  // whatappAPIReq(mess) {
-  //   var data = {
-  //     to: "+919980568567",
-  //     type: "hsm",
-  //     from: "aa4c8e7cee664341a22ef9bfd9f52477",
-  //     content: {
-  //       hsm: {
-  //         namespace: "61705ee7-6aa2-45f7-a847-41132871c315",
-  //         templateName: "gudwil_feedback_template",
-  //         language: {
-  //           policy: "deterministic",
-  //           code: "en",
-  //         },
-  //         params: [{ default: "Bob" }, { default: "tomorrow!" }],
-  //       },
-  //     },
-  //   };
-
-  //   let aUrl = "https://conversations.messagebird.com/v1/send";
-  //   $.ajax({
-  //     data: data,
-  //     method: "POST",
-  //     dataType: "json",
-  //     cors: true,
-  //     secure: true,
-  //     headers: {
-  //       Authorization: "AccessKey" + "xviwR0ZGgwT8WVU5InhX0uUgy",
-  //       contentType: "application/json; charset=utf-8",
-  //       "Access-Control-Allow-Origin": "*",
-  //     },
-  //     beforeSend: function (xhr) {
-  //       xhr.setRequestHeader("Authorization", "Basic " + btoa(""));
-  //     },
-  //     url: aUrl,
-  //     crossDomain: true,
-  //     done: function () {},
-  //     success: function () {
-  //       console.log(JSON.stringify(data));
-  //     },
-  //     error: function (xhr, status) {},
-  //   });
-  // }
 
   onFileChange(ev) {
     this.alertService.clear();

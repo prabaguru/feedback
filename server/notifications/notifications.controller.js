@@ -6,11 +6,11 @@ const notificationService = require("./notifications.service");
 router.post("/create", create);
 router.get("/getall", getAll);
 router.get("/getById", getById);
+router.get("/getNotificationsById", getNotificationsById);
 router.put("/update", update);
 router.put("/sdelete", sdelete);
 router.delete("/delete", _delete);
 router.post("/createRegN", createRegNoti);
-router.get("/getNotificationsById", getNotificationsById);
 
 module.exports = router;
 
@@ -37,14 +37,14 @@ function getAll(req, res, next) {
 
 function getById(req, res, next) {
   notificationService
-    .getById(req.user.sub)
+    .getById(req.query.id)
     .then((data) => res.json(data))
     .catch((err) => next(err));
 }
 
 function getNotificationsById(req, res, next) {
   notificationService
-    .getById(req.user.sub)
+    .getNotificationsById(req.user.sub)
     .then((data) => res.json(data))
     .catch((err) => next(err));
 }

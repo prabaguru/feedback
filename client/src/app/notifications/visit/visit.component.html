@@ -1,0 +1,46 @@
+﻿<div class="container">
+  <div class="row">
+    <div class="col-sm-12" *ngIf="succesFB" style="margin-top: -30px">
+      <h2 class="ipdhead">{{ hospital_Name }} Apoorva Hospital New Note</h2>
+      <h5 class="ipdwelcome" style="line-height: 22px">
+        Please share your experience with our services
+      </h5>
+      <div id="accordion">
+        <div class="card">
+          <div class="card-header" id="headingOne">
+            <h5 class="mb-0">
+              <button
+                class="btn btn-link"
+                aria-expanded="true"
+                aria-controls="collapseOne"
+                (click)="makeEvoid($event)"
+              >
+                General Info
+              </button>
+            </h5>
+          </div>
+
+          <div
+            id="collapseOne"
+            class="collapse show"
+            aria-labelledby="headingOne"
+            data-parent="#accordion"
+          >
+            <div class="card-body" innerHTML="{{ notification.content }}"></div>
+          </div>
+        </div>
+      </div>
+      <div class="mandtry" *ngIf="registrationForminvalid">
+        <p>Some mandatory fields are missing, please check and resubmit</p>
+      </div>
+      <div class="form-group" style="margin-top: 20px">
+        <button [disabled]="loading" class="btn bg-primary">
+          <i class="fa fa-registered"></i>&nbsp;Register for this New Note</button
+        >&nbsp;&nbsp;
+        <button [disabled]="loading" class="btn bg-primary">
+          <i class="fa fa-share"></i>&nbsp;Share
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

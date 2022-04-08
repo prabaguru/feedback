@@ -2,7 +2,7 @@
 const db = require("_helpers/db");
 const nodemailer = require("nodemailer");
 const Notifications = db.Notifications;
-const RegNotifications = db.RegisteredNotifications;
+//const RegNotifications = db.RegisteredNotifications;
 module.exports = {
   getAll,
   getById,
@@ -10,7 +10,6 @@ module.exports = {
   update,
   sdelete,
   delete: _delete,
-  createRegNoti,
   getNotificationsById,
 };
 
@@ -19,21 +18,25 @@ async function getAll() {
 }
 
 async function getById(id) {
-  return await Notifications.find({ hospital_id: id });
+  return await Notifications.findOne({ _id: id });
 }
 
 async function getNotificationsById(id) {
-  return await RegNotifications.find({ hospital_id: id });
+  return await Notifications.find({ hospital_id: id });
 }
 
-async function createRegNoti(Param) {
-  const notifi = new RegNotifications(Param);
-  // save
-  await notifi.save();
-  // let mes =
-  //   "Your Email to ";
-  // main(mes, Param.email).catch(console.error);
-}
+// async function getNotificationsById(id) {
+//   return await RegNotifications.find({ hospital_id: id });
+// }
+
+// async function createRegNoti(Param) {
+//   const notifi = new RegNotifications(Param);
+//   // save
+//   await notifi.save();
+//   // let mes =
+//   //   "Your Email to ";
+//   // main(mes, Param.email).catch(console.error);
+// }
 
 async function create(Param) {
   // validate

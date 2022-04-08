@@ -21,9 +21,16 @@ export class UserService {
   getAllNotificationsById(searchParams) {
     const options = { params: new HttpParams({ fromString: searchParams }) };
     return this.http.get(
-      `${environment.apiUrl}/notifications/getById`,
+      `${environment.apiUrl}/notifications/getNotificationsById`,
       options
     );
+  }
+
+  getNotificationById(searchParams: string) {
+    const params = new HttpParams().append("id", searchParams);
+    return this.http.get(`${environment.apiUrl}/notifications/getById`, {
+      params,
+    });
   }
 
   getAll() {

@@ -24,25 +24,124 @@
     <tbody>
       <tr *ngFor="let data of notifications; let i = index">
         <th scope="row">
+          <button
+            type="button"
+            data-toggle="modal"
+            data-target="#exampleModalLong"
+            class="btn btn-primary"
+            (click)="SendTemplateName(data.templatename, data._id)"
+          >
+            Send SMS
+          </button>
+          &nbsp;&nbsp;&nbsp;
           <a href="javascript:void();" (click)="sendEditData(data)">
             <i class="fa fa-edit" aria-hidden="true"></i>&nbsp;Edit</a
           >
-          <!-- &nbsp;&nbsp;&nbsp;
-          <a
-            href="javascript:void();"
-            data-toggle="modal"
-            data-backdrop="static"
-            data-keyboard="false"
-            data-target="#exampleModal"
-            (click)="getUserID(user.id)"
-            *ngIf="data.status"
-          >
-            <i class="fa fa-trash" aria-hidden="true"></i>
-          </a> -->
         </th>
         <td>{{ data.templatename }}</td>
         <td>{{ data.createdDate | date: "dd/MM/yyyy" }}</td>
       </tr>
     </tbody>
   </table>
+</div>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  data-backdrop="static"
+  id="exampleModalLong"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLongTitle"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">
+          Send Notification for {{ templateName }}
+        </h5>
+        <button
+          type="button"
+          class="close"
+          id="closenote"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-12">
+              <form [formGroup]="sendSmsForm" (ngSubmit)="onSubmit()">
+                <div class="form-group">
+                  <label for="mobile">Enter Mobile nos</label>
+                  <span style="font-style: italic; font-size: 12px">
+                    comma separated(9980568567,9786310001...)</span
+                  >
+                  <textarea
+                    formControlName="mobile"
+                    class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted && f.mobile.errors }"
+                    rows="10"
+                    id="reformsms"
+                  ></textarea>
+                  <div
+                    *ngIf="submitted && f.mobile.errors"
+                    class="invalid-feedback"
+                  >
+                    <div *ngIf="f.mobile.errors.required">
+                      Mobile no is required
+                    </div>
+                    <div *ngIf="f.mobile.errors.pattern">
+                      <p>
+                        Some unusual numbers are found...<br />Enter numbers
+                        follwed by comma. Eg: (9980568567,9786310001...)
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label>Upload excel sheet with nos... </label>
+                  <p>
+                    <input
+                      type="file"
+                      (change)="onFileChange($event)"
+                      id="fileexcel"
+                    />
+                  </p>
+                </div>
+
+                <div id="output"></div>
+
+                <div class="form-group">
+                  <button [disabled]="loading" class="btn bg-primary">
+                    <span
+                      *ngIf="loading"
+                      class="spinner-border spinner-border-sm mr-1"
+                    ></span>
+                    Send Notification SMS
+                  </button>
+                  &nbsp;&nbsp;&nbsp;
+                  <button
+                    class="btn bg-primary"
+                    id="smsreset"
+                    (click)="formreset()"
+                  >
+                    Reset</button
+                  ><br />
+                  <a href="mobnos.xlsx" download style="font-size: 12px">
+                    &nbsp;Download sample excel file to upload mobile nos...</a
+                  >
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer"></div>
+    </div>
+  </div>
 </div>

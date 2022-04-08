@@ -26,10 +26,13 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { Ng2GoogleChartsModule } from "ng2-google-charts";
 import { LoaderComponent } from "./loader/loader.component";
 import { performanceComponent } from "./performance/performance.component";
-import { notificationsComponent } from "./notifications/notifications.component";
-import { addComponent } from "./notifications/add/add.component";
-import { editComponent } from "./notifications/edit/edit.component";
-
+import {
+  notificationsComponent,
+  visitComponent,
+  addComponent,
+  editComponent,
+  viewRegisteredNotificationComponent,
+} from "./notifications";
 /* services */
 import { LoaderInterceptorService } from "./_services/loader-interceptor.service";
 import { CKEditorModule } from "@ckeditor/ckeditor5-angular";
@@ -66,6 +69,8 @@ import { CKEditorModule } from "@ckeditor/ckeditor5-angular";
     notificationsComponent,
     addComponent,
     editComponent,
+    viewRegisteredNotificationComponent,
+    visitComponent,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

@@ -1,0 +1,26 @@
+﻿<h3>Members Registered for Notifications</h3>
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Action</th>
+        <th scope="col">Name</th>
+        <th scope="col">RegisteredDate</th>
+      </tr>
+    </thead>
+    <div class="center" *ngIf="notifications.length == 0" align="center">
+      <strong>No Records Found...</strong>
+    </div>
+    <tbody>
+      <tr *ngFor="let data of notifications; let i = index">
+        <th scope="row">
+          <a href="javascript:void();">
+            <i class="fa fa-eye" aria-hidden="true"></i>&nbsp;View</a
+          >
+        </th>
+        <td>{{ data.templatename }}</td>
+        <td>{{ data.createdDate | date: "dd/MM/yyyy" }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

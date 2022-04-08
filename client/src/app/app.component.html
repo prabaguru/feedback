@@ -20,6 +20,7 @@
         >Add Users</a
       >
       <a
+        href="javascript:void();"
         routerLink="/sendsms"
         (click)="ChangeOPD('OPD'); shareData.setData('departMent', 'OPD')"
         class="list-group-item list-group-item-action bg-primary"
@@ -31,6 +32,7 @@
         >OPD</a
       >
       <a
+        href="javascript:void();"
         routerLink="/sendsms"
         (click)="ChangeOPD('IPD'); shareData.setData('departMent', 'IPD')"
         class="list-group-item list-group-item-action bg-primary"
@@ -43,13 +45,14 @@
       >
 
       <a
+        href="javascript:void();"
         routerLink="/performance"
         class="list-group-item list-group-item-action bg-primary"
         *ngIf="currentUser.role === 'Weisermanner'"
         >App Performance</a
       >
 
-      <div class="dropdown">
+      <div class="dropdown" *ngIf="currentUser.role === 'SUPER-ADMIN'">
         <button
           class="list-group-item list-group-item-action bg-primary dropdown-toggle"
           type="button"
@@ -62,12 +65,13 @@
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
           <a
+            href="javascript:void();"
             routerLink="/history"
             class="dropdown-item"
-            *ngIf="currentUser.role === 'SUPER-ADMIN'"
             >History</a
           >
           <a
+            href="javascript:void();"
             data-toggle="modal"
             data-target="#exampleModalfb"
             class="dropdown-item"
@@ -76,12 +80,32 @@
         </div>
       </div>
 
-      <a
-        routerLink="/notifications"
-        class="list-group-item list-group-item-action bg-primary"
-        *ngIf="currentUser.role !== 'Weisermanner'"
-        >New Notifications</a
-      >
+      <div class="dropdown" *ngIf="currentUser.role !== 'Weisermanner'">
+        <button
+          class="list-group-item list-group-item-action bg-primary dropdown-toggle"
+          type="button"
+          id="dropdownMenuButton2"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+        >
+          New Notifications
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+          <a
+            href="javascript:void();"
+            routerLink="/notifications"
+            class="dropdown-item"
+            >New Notifications</a
+          >
+          <a
+            href="javascript:void();"
+            routerLink="/viewRegisteredNotifications"
+            class="dropdown-item"
+            >Registered Members</a
+          >
+        </div>
+      </div>
     </div>
   </div>
   <!-- /#sidebar-wrapper -->
