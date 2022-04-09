@@ -36,7 +36,7 @@ export class viewRegisteredNotificationComponent implements OnInit {
   }
 
   loadAllNotifications() {
-    let obj = {
+    let obj: any = {
       id: this.currentUser._id,
     };
     this.userService
