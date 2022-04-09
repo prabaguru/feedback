@@ -186,6 +186,29 @@ export class notificationsComponent implements OnInit {
     reader.readAsBinaryString(file);
   }
 
+  deactivateNote(id, status) {
+    this.submitted = true;
+    let obj: any = {
+      id: id,
+      status: status,
+    };
+    // reset alerts on submit
+    this.alertService.clear();
+    this.userService
+      .updateNotifications(obj)
+      .pipe(first())
+      .subscribe(
+        (data) => {
+          this.alertService.success("Update successfully", true);
+          this.loadAllNotifications();
+        },
+        (error) => {
+          this.alertService.error(error);
+          this.loading = false;
+        }
+      );
+  }
+
   formreset() {
     this.sendSmsForm.controls.mobile.setValue("");
     this.submitted = false;

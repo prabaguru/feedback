@@ -8,6 +8,7 @@ import {
 } from "@angular/forms";
 import { first } from "rxjs/operators";
 import * as $ from "jquery";
+
 import {
   AlertService,
   UserService,
@@ -26,6 +27,7 @@ export class visitComponent implements OnInit {
   loading = false;
   submitted = false;
   notification: any = [];
+  readAllDAta: any = [];
   tomorrow = new Date();
   minDate = new Date("01/01/1970");
   registrationForminvalid: boolean = false;
@@ -97,13 +99,34 @@ export class visitComponent implements OnInit {
           this.f.notification.setValue(this.notification.templatename);
           this.f.notificationId.setValue(this.notification._id);
           this.f.hospital_id.setValue(this.notification.hospital_id);
+          this.loadAllNotifications(this.f.hospital_id.value);
         },
         (error) => {
           this.alertService.error(error);
         }
       );
   }
-
+  loadAllNotifications(id: string) {
+    this.userService
+      .getAllNotificationsByIdNoJwt(id)
+      .pipe(first())
+      .subscribe(
+        (data) => {
+          this.readAllDAta = null;
+          this.readAllDAta = data;
+          //console.log(this.users);
+          //this.users = this.users.filter(arr => arr.hospital_id == this.currentUser._id);
+        },
+        (error) => {
+          this.alertService.error(error);
+        }
+      );
+  }
+  readOtherNotes(id: string) {
+    this.notification = 0;
+    let noteDAta = this.readAllDAta.filter((arr) => arr._id == id);
+    this.notification = noteDAta[0];
+  }
   onSubmit() {
     this.submitted = true;
     //console.log(this.registrationForm.value);

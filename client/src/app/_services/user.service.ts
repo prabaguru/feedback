@@ -32,6 +32,17 @@ export class UserService {
       params,
     });
   }
+
+  getAllNotificationsByIdNoJwt(searchParams: string) {
+    const params = new HttpParams().append("id", searchParams);
+    return this.http.get(
+      `${environment.apiUrl}/notifications/getNotificationsByIdNoJwt`,
+      {
+        params,
+      }
+    );
+  }
+
   //registerForNotifications
   createRegNotifications(payload) {
     return this.http.post(

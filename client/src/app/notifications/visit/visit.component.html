@@ -1,4 +1,36 @@
-﻿<div class="container">
+﻿<nav class="navbar fixed-top navbar-light bg-light bg-primary">
+  <img src="../../assets/images/logo.png" width="80" />
+  <button
+    [disabled]="loading"
+    class="btn btn-warning"
+    data-toggle="modal"
+    data-target="#exampleModalnote"
+  >
+    <i class="fa fa-leaf"></i>&nbsp;Book now</button
+  >&nbsp;&nbsp;
+  <div class="dropdown">
+    <button
+      class="btn bg-primary dropdown-toggle"
+      type="button"
+      id="dropdownMenuButton"
+      data-toggle="dropdown"
+      aria-haspopup="true"
+      aria-expanded="false"
+    >
+      Read Other Notes
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+      <a
+        class="dropdown-item"
+        href="javascript:void()"
+        (click)="readOtherNotes(data._id)"
+        *ngFor="let data of readAllDAta.reverse()"
+        >{{ data.templatename }}</a
+      >
+    </div>
+  </div>
+</nav>
+<div class="container" style="height: 1000px">
   <div class="row">
     <div class="col-sm-12" style="margin-top: -10px">
       <div id="accordion">
@@ -32,11 +64,12 @@
           data-toggle="modal"
           data-target="#exampleModalnote"
         >
-          <i class="fa fa-registered"></i>&nbsp;Register for this New Note</button
+          <i class="fa fa-leaf"></i>&nbsp;Book now</button
         >&nbsp;&nbsp;
         <button class="btn bg-primary">
           <i class="fa fa-share"></i>&nbsp;Share
         </button>
+        <div id="share"></div>
       </div>
     </div>
   </div>
