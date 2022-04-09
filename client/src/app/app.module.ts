@@ -36,7 +36,6 @@ import {
 /* services */
 import { LoaderInterceptorService } from "./_services/loader-interceptor.service";
 import { CKEditorModule } from "@ckeditor/ckeditor5-angular";
-
 @NgModule({
   imports: [
     BrowserModule,

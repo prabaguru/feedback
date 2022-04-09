@@ -32,7 +32,8 @@ export class visitComponent implements OnInit {
   minDate = new Date("01/01/1970");
   registrationForminvalid: boolean = false;
   notificationId: string;
-
+  public repoUrl = "";
+  public imageUrl = "http://gudwil.live/assets/images/logo.png";
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
@@ -50,7 +51,7 @@ export class visitComponent implements OnInit {
   ngOnInit() {
     this.notificationId = "";
     this.notificationId = this.route.snapshot.queryParamMap.get("Nid");
-
+    this.repoUrl = `http://gudwil.live/#/visit?Nid=${this.notificationId}`;
     this.alertService.clear();
     this.registrationForm = this.formBuilder.group({
       name: ["", [Validators.required]],

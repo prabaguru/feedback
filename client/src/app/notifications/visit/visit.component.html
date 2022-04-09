@@ -57,19 +57,57 @@
         </div>
       </div>
 
-      <div class="form-group" style="margin-top: 20px">
+      <div class="form-group" style="margin-top: 20px; line-height: 50px">
         <button
           [disabled]="loading"
-          class="btn bg-primary"
+          class="btn btn-warning"
           data-toggle="modal"
           data-target="#exampleModalnote"
         >
           <i class="fa fa-leaf"></i>&nbsp;Book now</button
         >&nbsp;&nbsp;
-        <button class="btn bg-primary">
-          <i class="fa fa-share"></i>&nbsp;Share
-        </button>
-        <div id="share"></div>
+        <a
+          class="btn bg-primary"
+          href="https://web.whatsapp.com/send?text=New Note From {{
+            notification.hospital_name
+          }}.  Find out what's new at your Health Centre; 1st to click, 1st to get 
+          {{ repoUrl }}"
+          target="_blank"
+        >
+          <i class="fa fa-whatsapp"></i>&nbsp; </a
+        >&nbsp;
+        <a
+          class="btn bg-primary"
+          target="_blank"
+          href="https://www.facebook.com/share.php?u={{
+            repoUrl
+          }}&quote=New Note From {{
+            notification.hospital_name
+          }}.  Find out what's new at your Health Centre; 1st to click, 1st to get"
+        >
+          <i class="fa fa-facebook"></i>&nbsp;</a
+        >&nbsp;
+        <a
+          class="btn bg-primary"
+          target="_blank"
+          href="https://www.linkedin.com/shareArticle?mini=true&url={{
+            repoUrl
+          }}"
+        >
+          <i class="fa fa-linkedin"></i>&nbsp;</a
+        >&nbsp;
+        <a
+          class="btn bg-primary"
+          target="_blank"
+          href="http://twitter.com/share?text=New Note From {{
+            notification.hospital_name
+          }}.  Find out what's new at your Health Centre; 1st to click, 1st to get&url={{
+            repoUrl
+          }}&hashtags=NewNote from {{ notification.hospital_name }}
+"
+        >
+          <i class="fa fa-twitter"></i>&nbsp;
+        </a>
       </div>
     </div>
   </div>
