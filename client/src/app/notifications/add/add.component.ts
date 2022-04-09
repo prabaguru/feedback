@@ -36,6 +36,10 @@ export class addComponent implements OnInit {
       templatename: ["", Validators.required],
       content: ["", Validators.required],
       hospital_id: [this.authenticationService.currentUserValue._id, []],
+      hospital_name: [
+        this.authenticationService.currentUserValue.firstName,
+        [],
+      ],
     });
   }
 

@@ -1,22 +1,16 @@
 ﻿<div class="container">
   <div class="row">
-    <div class="col-sm-12" *ngIf="succesFB" style="margin-top: -30px">
-      <h2 class="ipdhead">{{ hospital_Name }} Apoorva Hospital New Note</h2>
-      <h5 class="ipdwelcome" style="line-height: 22px">
-        Please share your experience with our services
-      </h5>
+    <div class="col-sm-12" style="margin-top: -10px">
       <div id="accordion">
         <div class="card">
           <div class="card-header" id="headingOne">
-            <h5 class="mb-0">
-              <button
-                class="btn btn-link"
-                aria-expanded="true"
-                aria-controls="collapseOne"
-                (click)="makeEvoid($event)"
-              >
-                General Info
-              </button>
+            <h2 class="ipdhead" style="text-transform: uppercase">
+              {{ notification.hospital_name ? notification.hospital_name : "" }}
+              New Note
+            </h2>
+
+            <h5 class="ipdwelcome" style="line-height: 22px">
+              Checkout what's new in Your health care center
             </h5>
           </div>
 
@@ -30,16 +24,134 @@
           </div>
         </div>
       </div>
-      <div class="mandtry" *ngIf="registrationForminvalid">
-        <p>Some mandatory fields are missing, please check and resubmit</p>
-      </div>
+
       <div class="form-group" style="margin-top: 20px">
-        <button [disabled]="loading" class="btn bg-primary">
+        <button
+          [disabled]="loading"
+          class="btn bg-primary"
+          data-toggle="modal"
+          data-target="#exampleModalnote"
+        >
           <i class="fa fa-registered"></i>&nbsp;Register for this New Note</button
         >&nbsp;&nbsp;
-        <button [disabled]="loading" class="btn bg-primary">
+        <button class="btn bg-primary">
           <i class="fa fa-share"></i>&nbsp;Share
         </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  data-backdrop="static"
+  data-keyboard="false"
+  id="exampleModalnote"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLabelnote"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabelnote">
+          Registering for {{ notification.templatename }}
+        </h5>
+        <button
+          type="button"
+          class="close"
+          id="aclose"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+          <div class="form-group">
+            <label for="Name"
+              ><strong>Name</strong> <span class="mandtry">*</span>
+            </label>
+            <input
+              type="text"
+              formControlName="name"
+              class="form-control"
+              [ngClass]="{ 'is-invalid': submitted && f.name.errors }"
+              maxlength="50"
+            />
+            <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+              <div *ngIf="f.name.errors.required">Name is required</div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="Mobile"
+              ><strong>Mobile</strong> <span class="mandtry">*</span>
+            </label>
+            <input
+              type="text"
+              formControlName="mobile"
+              class="form-control"
+              [ngClass]="{ 'is-invalid': submitted && f.mobile.errors }"
+              maxlength="13"
+            />
+            <div *ngIf="submitted && f.mobile.errors" class="invalid-feedback">
+              <div *ngIf="f.mobile.errors.required">Mobile no is required</div>
+              <div *ngIf="f.mobile.errors.pattern">Only numbers Allowed</div>
+              <div *ngIf="f.mobile.errors.minlength">
+                Mobile no must have 10 digits
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="Email"><strong>Email</strong> </label>
+            <input
+              type="text"
+              formControlName="email"
+              class="form-control"
+              [ngClass]="{ 'is-invalid': submitted && f.email.errors }"
+              maxlength="100"
+            />
+            <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+              <div *ngIf="f.email.errors.required">Email is required</div>
+              <div *ngIf="f.email.errors.pattern">
+                Enter a valid email: No Caps,Check for @.
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <mat-form-field appearance="fill">
+              <mat-label>DOB</mat-label>
+              <input
+                matInput
+                [matDatepicker]="picker"
+                [readonly]="true"
+                formControlName="DOB"
+                [min]="minDate"
+                [max]="tomorrow"
+              />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="picker"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #picker startView="multi-year"> </mat-datepicker>
+            </mat-form-field>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn bg-primary">Register</button>
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   </div>

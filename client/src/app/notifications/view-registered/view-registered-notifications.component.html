@@ -1,24 +1,32 @@
 ﻿<h3>Members Registered for Notifications</h3>
+<div class="float-right mb-2" *ngIf="notifications.length != 0">
+  <a href="javascript:void()" (click)="exportexcel()"
+    ><strong><i class="fa fa-download"></i>Download to excel</strong></a
+  >
+</div>
+
 <div class="table-responsive">
-  <table class="table table-striped">
+  <table class="table table-striped" id="excel-table">
     <thead>
       <tr>
-        <th scope="col">Action</th>
         <th scope="col">Name</th>
-        <th scope="col">RegisteredDate</th>
+        <th scope="col">Email</th>
+        <th scope="col">Phone</th>
+        <th scope="col">DOB</th>
+        <th scope="col">Registered For</th>
+        <th scope="col">Registered On</th>
       </tr>
     </thead>
     <div class="center" *ngIf="notifications.length == 0" align="center">
       <strong>No Records Found...</strong>
     </div>
     <tbody>
-      <tr *ngFor="let data of notifications; let i = index">
-        <th scope="row">
-          <a href="javascript:void();">
-            <i class="fa fa-eye" aria-hidden="true"></i>&nbsp;View</a
-          >
-        </th>
-        <td>{{ data.templatename }}</td>
+      <tr *ngFor="let data of notifications.reverse(); let i = index">
+        <td>{{ data.name }}</td>
+        <td>{{ data.email }}</td>
+        <td>{{ data.mobile }}</td>
+        <td>{{ data.DOB | date: "dd/MM/yyyy" }}</td>
+        <td>{{ data.notification }}</td>
         <td>{{ data.createdDate | date: "dd/MM/yyyy" }}</td>
       </tr>
     </tbody>

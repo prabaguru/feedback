@@ -10,7 +10,6 @@ router.get("/getNotificationsById", getNotificationsById);
 router.put("/update", update);
 router.put("/sdelete", sdelete);
 router.delete("/delete", _delete);
-router.post("/createRegN", createRegNoti);
 
 module.exports = router;
 
@@ -18,13 +17,6 @@ function create(req, res, next) {
   notificationService
     .create(req.body)
     .then(() => res.status(200).json({ message: "Created Successfully" }))
-    .catch((err) => next(err));
-}
-
-function createRegNoti(req, res, next) {
-  notificationService
-    .create(req.body)
-    .then(() => res.status(200).json({ message: "Submitted Successfully" }))
     .catch((err) => next(err));
 }
 

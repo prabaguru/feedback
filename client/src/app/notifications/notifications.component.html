@@ -22,7 +22,7 @@
       <strong>No Records Found...</strong>
     </div>
     <tbody>
-      <tr *ngFor="let data of notifications; let i = index">
+      <tr *ngFor="let data of notifications.reverse(); let i = index">
         <th scope="row">
           <button
             type="button"

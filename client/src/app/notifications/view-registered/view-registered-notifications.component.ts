@@ -8,8 +8,8 @@ import {
   AuthenticationService,
   sharedDataService,
 } from "@/_services";
+import * as XLSX from "xlsx";
 import * as $ from "jquery";
-import { GoogleChartInterface } from "ng2-google-charts";
 @Component({
   templateUrl: "view-registered-notifications.component.html",
   styleUrls: ["./view-registered-notifications.component.scss"],
@@ -18,6 +18,7 @@ export class viewRegisteredNotificationComponent implements OnInit {
   currentUser: User;
   notifications: any = [];
   loading = false;
+  fileName = "newnote-members.xlsx";
   constructor(
     private authenticationService: AuthenticationService,
     private userService: UserService,
@@ -39,7 +40,7 @@ export class viewRegisteredNotificationComponent implements OnInit {
       id: this.currentUser._id,
     };
     this.userService
-      .getAllNotificationsById(obj)
+      .getRegNotificationById(obj)
       .pipe(first())
       .subscribe(
         (data) => {
@@ -53,52 +54,16 @@ export class viewRegisteredNotificationComponent implements OnInit {
       );
   }
 
-  onSubmit(editForm) {
-    // reset alerts on submit
-    this.alertService.clear();
-    //console.log(editForm);return;
+  exportexcel(): void {
+    /* table id is passed over here */
+    let element = document.getElementById("excel-table");
+    const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
 
-    let obj = {};
-    obj = {
-      regType: editForm.value.regType,
-      role: editForm.value.role,
-      password: editForm.value.password,
-      mobile: editForm.value.mobile,
-      id: this.notifications,
-      status: editForm.value.status,
-    };
-    this.loading = true;
-    this.userService
-      .update(obj)
-      .pipe(first())
-      .subscribe(
-        (data) => {
-          this.alertService.success("Update successful", true);
-          this.loading = false;
-          //$("#exampleModalLong").modal("hide");
-          //this.router.navigate(['/login']);
-        },
-        (error) => {
-          this.alertService.error(error);
-          this.loading = false;
-          //$("#exampleModalLong").modal("hide");
-        }
-      );
+    /* generate workbook and add the worksheet */
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
+
+    /* save to file */
+    XLSX.writeFile(wb, this.fileName);
   }
-
-  // deleteUser() {
-  //   this.userService
-  //     .updateSingle(this.userID)
-  //     .pipe(first())
-  //     .subscribe(
-  //       () => {
-  //         this.alertService.success("Deleted successfully", true);
-  //         //this.users = this.users.filter(arr => arr._id == id);
-  //         this.loadAllUsers();
-  //       },
-  //       (error) => {
-  //         this.alertService.error(error);
-  //       }
-  //     );
-  // }
 }

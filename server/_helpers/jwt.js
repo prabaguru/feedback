@@ -17,6 +17,7 @@ function jwt() {
       "/performance/GetAllappPerformance",
       "/customers/registerCustomers",
       "/notifications/getById",
+      "/regnotifications/create",
     ],
   });
 }

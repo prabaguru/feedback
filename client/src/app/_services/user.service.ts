@@ -32,6 +32,20 @@ export class UserService {
       params,
     });
   }
+  //registerForNotifications
+  createRegNotifications(payload) {
+    return this.http.post(
+      `${environment.apiUrl}/regnotifications/create`,
+      payload
+    );
+  }
+
+  getRegNotificationById(searchParams: string) {
+    const params = new HttpParams().append("id", searchParams);
+    return this.http.get(`${environment.apiUrl}/regnotifications/getById`, {
+      params,
+    });
+  }
 
   getAll() {
     return this.http.get<User[]>(`${environment.apiUrl}/users`);

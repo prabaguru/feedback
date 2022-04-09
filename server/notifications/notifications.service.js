@@ -2,7 +2,6 @@
 const db = require("_helpers/db");
 const nodemailer = require("nodemailer");
 const Notifications = db.Notifications;
-//const RegNotifications = db.RegisteredNotifications;
 module.exports = {
   getAll,
   getById,
@@ -24,19 +23,6 @@ async function getById(id) {
 async function getNotificationsById(id) {
   return await Notifications.find({ hospital_id: id });
 }
-
-// async function getNotificationsById(id) {
-//   return await RegNotifications.find({ hospital_id: id });
-// }
-
-// async function createRegNoti(Param) {
-//   const notifi = new RegNotifications(Param);
-//   // save
-//   await notifi.save();
-//   // let mes =
-//   //   "Your Email to ";
-//   // main(mes, Param.email).catch(console.error);
-// }
 
 async function create(Param) {
   // validate

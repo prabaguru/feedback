@@ -16,4 +16,5 @@ module.exports = {
   Customers: require("../customers/customer.model"),
   SMS: require("../sendsms/sms.model"),
   Notifications: require("../notifications/notifications.model"),
+  RegisteredNotifications: require("../notifications/registered-notifications/registered-notifications.model"),
 };
