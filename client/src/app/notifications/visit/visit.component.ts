@@ -33,7 +33,6 @@ export class visitComponent implements OnInit {
   registrationForminvalid: boolean = false;
   notificationId: string;
   public repoUrl = "";
-  public imageUrl = "http://gudwil.live/assets/images/logo.png";
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
@@ -70,7 +69,7 @@ export class visitComponent implements OnInit {
           Validators.minLength(10),
         ],
       ],
-      DOB: ["", [Validators.required]],
+      DOB: ["", []],
       hospital_id: ["", [Validators.required]],
       notification: ["", [Validators.required]],
       notificationId: ["", [Validators.required]],

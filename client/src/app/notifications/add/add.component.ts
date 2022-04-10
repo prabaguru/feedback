@@ -11,7 +11,7 @@ import { first } from "rxjs/operators";
 
 import { AlertService, UserService, AuthenticationService } from "@/_services";
 import * as ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-import { EDITORCONFIG } from "../editor-config";
+
 @Component({
   templateUrl: "add.component.html",
   styleUrls: ["./add.component.scss"],
@@ -21,7 +21,6 @@ export class addComponent implements OnInit {
   loading = false;
   submitted = false;
   public Editor = ClassicEditor;
-  config = EDITORCONFIG;
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
@@ -81,5 +80,35 @@ export class addComponent implements OnInit {
   resetForm() {
     this.submitted = false;
     this.addForm.reset();
+  }
+  onReady(eventData) {
+    eventData.plugins.get("FileRepository").createUploadAdapter = function (
+      loader
+    ) {
+      // console.log("loader : ", loader);
+      // console.log(btoa(loader.file));
+      return new UploadAdapter(loader);
+    };
+  }
+}
+
+export class UploadAdapter {
+  private loader;
+  constructor(loader) {
+    this.loader = loader;
+  }
+
+  upload() {
+    return this.loader.file.then(
+      (file) =>
+        new Promise((resolve, reject) => {
+          var myReader = new FileReader();
+          myReader.onloadend = (e) => {
+            resolve({ default: myReader.result });
+          };
+
+          myReader.readAsDataURL(file);
+        })
+    );
   }
 }

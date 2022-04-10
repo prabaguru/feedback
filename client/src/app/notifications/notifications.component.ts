@@ -41,7 +41,7 @@ export class notificationsComponent implements OnInit {
     this.notifications.length = 0;
     this.loadAllNotifications();
 
-    this.alertService.clear();
+    //this.alertService.clear();
     this.sendSmsForm = this.formBuilder.group({
       mobile: ["", [Validators.required, Validators.pattern("^[-+0-9,' ']*$")]],
     });

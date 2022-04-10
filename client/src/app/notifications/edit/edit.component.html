@@ -17,8 +17,8 @@
         <div class="form-group">
           <ckeditor
             [editor]="Editor"
-            [config]="config"
             formControlName="content"
+            (ready)="onReady($event)"
             [ngClass]="{
               'is-invalid': submitted && f.content.errors
             }"

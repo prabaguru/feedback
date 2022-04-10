@@ -16,7 +16,6 @@ import {
   sharedDataService,
 } from "@/_services";
 import * as ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-import { EDITORCONFIG } from "../editor-config";
 @Component({
   templateUrl: "edit.component.html",
   styleUrls: ["./edit.component.scss"],
@@ -26,7 +25,6 @@ export class editComponent implements OnInit {
   loading = false;
   submitted = false;
   public Editor = ClassicEditor;
-  config = EDITORCONFIG;
   editData: any;
   constructor(
     private formBuilder: FormBuilder,
@@ -40,10 +38,13 @@ export class editComponent implements OnInit {
   ngOnInit() {
     this.alertService.clear();
     this.editData = this.shareData.getData("editdata");
-    console.log(this.editData);
+    //console.log(this.editData);
     this.editForm = this.formBuilder.group({
-      templatename: [this.editData.templatename, Validators.required],
-      content: [this.editData.content, Validators.required],
+      templatename: [
+        this.editData.templatename ? this.editData.templatename : " ",
+        [Validators.required],
+      ],
+      content: [this.editData.content, [Validators.required]],
       id: [this.editData._id, []],
     });
   }
@@ -86,5 +87,36 @@ export class editComponent implements OnInit {
   resetForm() {
     this.submitted = false;
     this.editForm.reset();
+  }
+
+  onReady(eventData) {
+    eventData.plugins.get("FileRepository").createUploadAdapter = function (
+      loader
+    ) {
+      //console.log("loader : ", loader);
+      //console.log(btoa(loader.file));
+      return new UploadAdapterEdit(loader);
+    };
+  }
+}
+
+export class UploadAdapterEdit {
+  private loader;
+  constructor(loader) {
+    this.loader = loader;
+  }
+
+  upload() {
+    return this.loader.file.then(
+      (file) =>
+        new Promise((resolve, reject) => {
+          var myReader = new FileReader();
+          myReader.onloadend = (e) => {
+            resolve({ default: myReader.result });
+          };
+
+          myReader.readAsDataURL(file);
+        })
+    );
   }
 }

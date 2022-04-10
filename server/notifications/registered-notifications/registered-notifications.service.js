@@ -29,6 +29,8 @@ async function create(Param) {
 
   // save
   await notifi.save();
+  let mes = `<p>Dear Sir / Madam,</p> <p>Thank you for booking ${Param.notification} note. Our health care team will connect with You shortly.`;
+  main(mes, Param.email).catch(console.error);
 }
 
 // async..await is not allowed in global scope, must use a wrapper
@@ -54,7 +56,7 @@ async function main(mes, email) {
   let info = await transporter.sendMail({
     from: "gudwil.matters@gmail.com", // sender address
     to: email, // list of receivers
-    subject: "GUDWIL-LIVE - Registration", // Subject line
+    subject: "GUDWIL-LIVE - Note Booking", // Subject line
     html: mes,
   });
 }

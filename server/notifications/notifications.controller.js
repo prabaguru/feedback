@@ -7,6 +7,7 @@ router.post("/create", create);
 router.get("/getall", getAll);
 router.get("/getById", getById);
 router.get("/getNotificationsById", getNotificationsById);
+router.get("/getNotificationsByIdNoJwt", getNotificationsByIdNoJwt);
 router.put("/update", update);
 router.put("/sdelete", sdelete);
 router.delete("/delete", _delete);
@@ -37,6 +38,13 @@ function getById(req, res, next) {
 function getNotificationsById(req, res, next) {
   notificationService
     .getNotificationsById(req.user.sub)
+    .then((data) => res.json(data))
+    .catch((err) => next(err));
+}
+
+function getNotificationsByIdNoJwt(req, res, next) {
+  notificationService
+    .getNotificationsByIdNoJwt(req.query.id)
     .then((data) => res.json(data))
     .catch((err) => next(err));
 }

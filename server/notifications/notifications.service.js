@@ -10,6 +10,7 @@ module.exports = {
   sdelete,
   delete: _delete,
   getNotificationsById,
+  getNotificationsByIdNoJwt,
 };
 
 async function getAll() {
@@ -22,6 +23,10 @@ async function getById(id) {
 
 async function getNotificationsById(id) {
   return await Notifications.find({ hospital_id: id });
+}
+
+async function getNotificationsByIdNoJwt(id) {
+  return await Notifications.find({ hospital_id: id, status: true });
 }
 
 async function create(Param) {

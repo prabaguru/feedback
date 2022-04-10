@@ -157,7 +157,22 @@
               <div *ngIf="f.name.errors.required">Name is required</div>
             </div>
           </div>
-
+          <div class="form-group">
+            <label for="Email"><strong>Email</strong> </label>
+            <input
+              type="text"
+              formControlName="email"
+              class="form-control"
+              [ngClass]="{ 'is-invalid': submitted && f.email.errors }"
+              maxlength="100"
+            />
+            <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+              <div *ngIf="f.email.errors.required">Email is required</div>
+              <div *ngIf="f.email.errors.pattern">
+                Enter a valid email: No Caps,Check for @.
+              </div>
+            </div>
+          </div>
           <div class="form-group">
             <label for="Mobile"
               ><strong>Mobile</strong> <span class="mandtry">*</span>
@@ -178,22 +193,6 @@
             </div>
           </div>
 
-          <div class="form-group">
-            <label for="Email"><strong>Email</strong> </label>
-            <input
-              type="text"
-              formControlName="email"
-              class="form-control"
-              [ngClass]="{ 'is-invalid': submitted && f.email.errors }"
-              maxlength="100"
-            />
-            <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
-              <div *ngIf="f.email.errors.required">Email is required</div>
-              <div *ngIf="f.email.errors.pattern">
-                Enter a valid email: No Caps,Check for @.
-              </div>
-            </div>
-          </div>
           <div class="form-group">
             <mat-form-field appearance="fill">
               <mat-label>DOB</mat-label>
