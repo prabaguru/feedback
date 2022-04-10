@@ -113,7 +113,7 @@ export class notificationsComponent implements OnInit {
     if (this.sendSmsForm.invalid) {
       return;
     }
-    let dep = `http://gudwil.live/sms.html?notification=${this.templateId}`;
+    let dep = `http://gudwil.live/note.html?Nid=${this.templateId}`;
 
     this.loading = true;
     let msgString = `Hi, Request your feedback on your visit to ${hName},Your inputs will help us improve our service to you. Click here: ${dep} - WEISERMANNER.`;

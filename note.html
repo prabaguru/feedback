@@ -1,0 +1,7 @@
+<script>
+  var url = "http://localhost:4200/note.html?Nid=6250c806781ccc1e0079570b";
+  var url = new URL(url);
+  var c = url.searchParams.get("Nid");
+  //console.log(c);
+  window.location.href = `http://gudwil.live/#/visit?Nid=${c}`;
+</script>
