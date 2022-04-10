@@ -1,17 +1,11 @@
 ﻿import { Component, OnInit, ViewChild } from "@angular/core";
 import { Router } from "@angular/router";
-import {
-  FormGroupDirective,
-  FormBuilder,
-  FormGroup,
-  Validators,
-  AbstractControl,
-} from "@angular/forms";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { first } from "rxjs/operators";
 
 import { AlertService, UserService, AuthenticationService } from "@/_services";
-import * as ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-
+//import * as ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import * as ClassicEditor from "ckcustombuild/build/ckeditor";
 @Component({
   templateUrl: "add.component.html",
   styleUrls: ["./add.component.scss"],
@@ -21,6 +15,7 @@ export class addComponent implements OnInit {
   loading = false;
   submitted = false;
   public Editor = ClassicEditor;
+  editorData: " ";
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,

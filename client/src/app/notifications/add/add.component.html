@@ -17,6 +17,7 @@
         <div class="form-group">
           <ckeditor
             [editor]="Editor"
+            [data]="editorData"
             (ready)="onReady($event)"
             formControlName="content"
             [ngClass]="{

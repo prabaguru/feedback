@@ -15,7 +15,8 @@ import {
   AuthenticationService,
   sharedDataService,
 } from "@/_services";
-import * as ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+//import * as ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import * as ClassicEditor from "ckcustombuild/build/ckeditor";
 @Component({
   templateUrl: "edit.component.html",
   styleUrls: ["./edit.component.scss"],
