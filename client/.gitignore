@@ -9,7 +9,7 @@
 
 # dependencies
 /node_modules
-/src/app/ckcustombuild/node_modules
+/ckcustombuild/node_modules
 
 # profiling files
 chrome-profiler-events*.json
