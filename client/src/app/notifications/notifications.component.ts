@@ -91,7 +91,7 @@ export class notificationsComponent implements OnInit {
       hName = data.Hname.toUpperCase();
     }
     if (hName) {
-      hName = hName.replace(/ /g, "");
+      hName = hName.replace(/ /g, " ");
     }
 
     this.submitted = true;
@@ -116,7 +116,7 @@ export class notificationsComponent implements OnInit {
     let dep = `http://gudwil.live/note.html?Nid=${this.templateId}`;
 
     this.loading = true;
-    let msgString = `Hi, Request your feedback on your visit to ${hName},Your inputs will help us improve our service to you. Click here: ${dep} - WEISERMANNER.`;
+    let msgString = `Dear Madam / Sir. Hi, Here is a New-Note from ${hName} to Better your Health. Click here ${dep}.`;
 
     let smsUrl = `http://185.136.166.131/domestic/sendsms/bulksms.php?username=joykj&password=joykj@1&type=TEXT&sender=WEISER&mobile=${mobNos}&message=${msgString}&entityId=1601335161674716856&templateId=1607100000000125850`;
     this.alertService.success("SMS sent successfully", true);

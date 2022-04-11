@@ -6,29 +6,8 @@
     data-toggle="modal"
     data-target="#exampleModalnote"
   >
-    <i class="fa fa-leaf"></i>&nbsp;Book now</button
-  >&nbsp;&nbsp;
-  <div class="dropdown">
-    <button
-      class="btn bg-primary dropdown-toggle"
-      type="button"
-      id="dropdownMenuButton"
-      data-toggle="dropdown"
-      aria-haspopup="true"
-      aria-expanded="false"
-    >
-      Read Other Notes
-    </button>
-    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-      <a
-        class="dropdown-item"
-        href="javascript:void()"
-        (click)="readOtherNotes(data._id)"
-        *ngFor="let data of readAllDAta.reverse()"
-        >{{ data.templatename }}</a
-      >
-    </div>
-  </div>
+    <i class="fa fa-leaf"></i>&nbsp;Book now
+  </button>
 </nav>
 <div class="container" style="height: 1000px">
   <div class="row">
@@ -52,7 +31,11 @@
             aria-labelledby="headingOne"
             data-parent="#accordion"
           >
-            <div class="card-body" innerHTML="{{ notification.content }}"></div>
+            <div
+              class="card-body"
+              id="noteContent"
+              innerHTML="{{ notification.content }}"
+            ></div>
           </div>
         </div>
       </div>
@@ -68,15 +51,18 @@
         >&nbsp;&nbsp;
         <a
           class="btn bg-primary"
-          href="https://web.whatsapp.com/send?text=New Note From {{
+          href="https://api.whatsapp.com/send?text=New Note From {{
             notification.hospital_name
-          }}.  Find out what's new at your Health Centre; 1st to click, 1st to get 
-          {{ repoUrl }}"
+          }}.  Find out what's new at your Health Centre; 1st to click, 1st to get {{
+            repoUrl
+          }}"
           target="_blank"
         >
           <i class="fa fa-whatsapp"></i>&nbsp; </a
         >&nbsp;
         <a
+          Gudwill-NNotePatient
+          Notifaication
           class="btn bg-primary"
           target="_blank"
           href="https://www.facebook.com/share.php?u={{
@@ -87,7 +73,7 @@
         >
           <i class="fa fa-facebook"></i>&nbsp;</a
         >&nbsp;
-        <a
+        <!-- <a
           class="btn bg-primary"
           target="_blank"
           href="https://www.linkedin.com/shareArticle?mini=true&url={{
@@ -95,7 +81,7 @@
           }}"
         >
           <i class="fa fa-linkedin"></i>&nbsp;</a
-        >&nbsp;
+        >&nbsp; -->
         <a
           class="btn bg-primary"
           target="_blank"
@@ -108,6 +94,27 @@
         >
           <i class="fa fa-twitter"></i>&nbsp;
         </a>
+        <div class="dropdown" *ngIf="readAllDAta.length > 1">
+          <button
+            class="btn bg-primary dropdown-toggle"
+            type="button"
+            id="dropdownMenuButton"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            Read Other Notes
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a
+              class="dropdown-item"
+              href="javascript:void()"
+              (click)="readOtherNotes(data._id)"
+              *ngFor="let data of readAllDAta.reverse()"
+              >{{ data.templatename }}</a
+            >
+          </div>
+        </div>
       </div>
     </div>
   </div>
