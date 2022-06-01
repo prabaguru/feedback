@@ -95,7 +95,7 @@ export class visitComponent implements OnInit {
       .subscribe(
         (data) => {
           this.notification = data;
-
+          //$("#noteContent").html(this.notification.content);
           this.f.notification.setValue(this.notification.templatename);
           this.f.notificationId.setValue(this.notification._id);
           this.f.hospital_id.setValue(this.notification.hospital_id);

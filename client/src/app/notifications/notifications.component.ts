@@ -113,12 +113,11 @@ export class notificationsComponent implements OnInit {
     if (this.sendSmsForm.invalid) {
       return;
     }
-    let dep = `http://gudwil.live/note.html?Nid=${this.templateId}`;
+    let dep = `http://gudwil.live/note.html?Nid=`;
 
     this.loading = true;
-    let msgString = `Dear Madam / Sir. Hi, Here is a New-Note from ${hName} to Better your Health. Click here ${dep}.`;
-
-    let smsUrl = `http://185.136.166.131/domestic/sendsms/bulksms.php?username=joykj&password=joykj@1&type=TEXT&sender=WEISER&mobile=${mobNos}&message=${msgString}&entityId=1601335161674716856&templateId=1607100000000125850`;
+    let msgString = `Dear Health Seeker. Here is a New-Note from your ${hName}. ${dep}${this.templateId}. Share to Care.! - Weisermanner`;
+    let smsUrl = `http://185.136.166.131/domestic/sendsms/bulksms.php?username=joykj&password=joykj@1&type=TEXT&sender=WEISER&mobile=${mobNos}&message=${msgString}&entityId=1601335161674716856&templateId=1607100000000206161`;
     this.alertService.success("SMS sent successfully", true);
     this.loading = false;
     this.submitted = false;
@@ -199,7 +198,11 @@ export class notificationsComponent implements OnInit {
       .pipe(first())
       .subscribe(
         (data) => {
-          this.alertService.success("Update successfully", true);
+          if (status) {
+            this.alertService.success("Activated successfully", true);
+          } else {
+            this.alertService.error("Deactivated successfully", true);
+          }
           this.loadAllNotifications();
         },
         (error) => {
