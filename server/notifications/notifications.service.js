@@ -85,7 +85,7 @@ async function main(mes, email) {
     //secure: true, // true for 465, false for other ports
     auth: {
       user: "gudwil.matters@gmail.com", // generated ethereal user
-      pass: "GudWill10on10$$$", // generated ethereal password
+      pass: "krxqjetsuukyruyn", // generated ethereal password
     },
   });
   //console.log(email);
