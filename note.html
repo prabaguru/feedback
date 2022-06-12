@@ -2,6 +2,7 @@
   var url = window.location;
   var url = new URL(url);
   var c = url.searchParams.get("Nid");
-  //console.log(c);
-  window.location.href = `http://gudwil.live/#/visit?Nid=${c}`;
+  d = c.replace(/\./g, "");
+  //console.log(d);
+  window.location.href = `http://gudwil.live/#/visit?Nid=${d}`;
 </script>
