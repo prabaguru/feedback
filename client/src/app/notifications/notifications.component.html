@@ -18,11 +18,11 @@
         <th scope="col">CreatedDate</th>
       </tr>
     </thead>
-    <div class="center" *ngIf="notifications.length == 0" align="center">
+    <div class="center" *ngIf="notifications.length == 0">
       <strong>No Records Found...</strong>
     </div>
     <tbody>
-      <tr *ngFor="let data of notifications.reverse(); let i = index">
+      <tr *ngFor="let data of notifications; let i = index">
         <th scope="row">
           <button
             type="button"
@@ -34,13 +34,13 @@
             Send SMS
           </button>
           &nbsp;&nbsp;&nbsp;
-          <a href="javascript:void();" (click)="sendEditData(data)">
+          <a href="javascript:void(0);" (click)="sendEditData(data)">
             <i class="fa fa-edit" aria-hidden="true"></i>&nbsp;Edit</a
           >
           &nbsp;&nbsp;&nbsp;
           <a
             *ngIf="data.status === true"
-            href="javascript:void();"
+            href="javascript:void(0);"
             (click)="deactivateNote(data._id, false)"
           >
             <i class="fa fa-ban" aria-hidden="true"></i>&nbsp;Deactivate</a
@@ -48,7 +48,7 @@
           &nbsp;&nbsp;&nbsp;
           <a
             *ngIf="data.status === false"
-            href="javascript:void();"
+            href="javascript:void(0);"
             (click)="deactivateNote(data._id, true)"
           >
             <i class="fa fa-check" aria-hidden="true"></i>&nbsp;Activate</a

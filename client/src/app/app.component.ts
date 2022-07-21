@@ -22,7 +22,7 @@ export class AppComponent implements OnInit {
     );
   }
   ngOnInit() {
-    console.log(this.currentUser);
+    //console.log(this.currentUser);
   }
   logout() {
     this.shareData.setData("smsFlag", false);

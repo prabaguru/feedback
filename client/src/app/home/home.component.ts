@@ -156,7 +156,7 @@ export class HomeComponent implements OnInit {
       .subscribe(
         (users) => {
           this.users = users;
-          console.log(this.users);
+          //console.log(this.users);
         },
         (error) => {
           this.alertService.error(error);
@@ -200,7 +200,7 @@ export class HomeComponent implements OnInit {
       .subscribe(
         (users) => {
           this.users = users;
-          console.log(this.users);
+          //console.log(this.users);
           //this.users = this.users.filter(arr => arr.hospital_id == this.currentUser._id);
         },
         (error) => {
