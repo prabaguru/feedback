@@ -15,6 +15,7 @@ function jwt() {
       "/ipd/ipdFeedback",
       "/performance/appPerformance",
       "/performance/GetAllappPerformance",
+      "/performance/sendSMS",
       "/customers/registerCustomers",
       "/notifications/getById",
       "/notifications/getNotificationsByIdNoJwt",
