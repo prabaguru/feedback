@@ -8,7 +8,7 @@ import {
 } from "@angular/forms";
 import { first } from "rxjs/operators";
 import { HttpParams, HttpClient, HttpHeaders } from "@angular/common/http";
-import { AlertService, sharedDataService } from "@/_services";
+import { AlertService, sharedDataService, UserService } from "@/_services";
 import * as XLSX from "xlsx";
 import * as $ from "jquery";
 @Component({ templateUrl: "customer.component.html" })
@@ -22,7 +22,8 @@ export class customerComponent implements OnInit {
     private router: Router,
     private alertService: AlertService,
     private shareData: sharedDataService,
-    private http: HttpClient
+    private http: HttpClient,
+    private userService: UserService
   ) {
     // redirect to home if already logged in
     // if (this.authenticationService.currentUserValue) {
@@ -81,8 +82,14 @@ export class customerComponent implements OnInit {
         mobNoArr.push(array[i]);
       }
     }
-    mobNos = mobNoArr.join();
-    //console.log(mobNos);
+    //mobNos = mobNoArr.join();
+    if (mobNoArr.length > 50) {
+      this.alertService.error(
+        "Mobile numbers exceeded 50. Maximum numbers can be 50",
+        true
+      );
+      return;
+    }
     // reset alerts on submit
     this.alertService.clear();
 
@@ -102,32 +109,39 @@ export class customerComponent implements OnInit {
     //let mobNos = this.registerForm.value.mobile.trim();
     let msgString = `Hi, Request your feedback on your visit to ${hName},Your inputs will help us improve our service to you. Click here: ${dep},${hID},${hName} - WEISERMANNER.`;
 
-    let smsUrl = `http://185.136.166.131/domestic/sendsms/bulksms.php?username=joykj&password=joykj@1&type=TEXT&sender=WEISER&mobile=${mobNos}&message=${msgString}&entityId=1601335161674716856&templateId=1607100000000125850`;
+    //let smsUrl = `http://185.136.166.131/domestic/sendsms/bulksms.php?username=joykj&password=joykj@1&type=TEXT&sender=WEISER&mobile=${mobNos}&message=${msgString}&entityId=1601335161674716856&templateId=1607100000000125850`;
     this.shareData.setData("smsFlag", true);
     this.alertService.success("SMS sent successfully", true);
     this.loading = false;
     this.submitted = false;
     this.registerForm.reset();
-    $.ajax({
-      type: "GET",
-      url: smsUrl,
-      crossDomain: true,
-      dataType: "jsonp",
-      jsonpCallback: "callback",
-      success: function () {
-        //console.log(JSON.stringify(data));
-        this.alertService.success("SMS sent successfully", true);
-        this.loading = false;
-        this.submitted = false;
-        this.registerForm.reset();
-      },
-      error: function (xhr, status) {
-        //this.alertService.error(status);
-        this.loading = false;
-      },
-    });
+    let payload = {
+      From: "WEISER",
+      To: mobNoArr,
+      Body: msgString,
+      dltentityid: "1601335161674716856",
+      dlttemplateid: "1607100000000125850",
+    };
+    this.sendSMSafterBooking(payload);
   }
-
+  sendSMSafterBooking(payload: any) {
+    this.userService
+      .sendSms(payload)
+      .pipe(first())
+      .subscribe(
+        (data: any) => {
+          //console.log(this.bookedTimeslot);
+          this.alertService.success("SMS sent successfully", true);
+          this.loading = false;
+          this.submitted = false;
+          this.registerForm.reset();
+        },
+        (error) => {
+          this.alertService.error(error, true);
+          this.loading = false;
+        }
+      );
+  }
   onFileChange(ev) {
     this.alertService.clear();
     let phonenos = [];

@@ -25,6 +25,7 @@ export class notificationsComponent implements OnInit {
   submitted = false;
   templateName: string = null;
   templateId: string = null;
+  message: boolean = false;
   constructor(
     private formBuilder: FormBuilder,
     private authenticationService: AuthenticationService,
@@ -95,6 +96,7 @@ export class notificationsComponent implements OnInit {
     }
 
     this.submitted = true;
+    this.message = false;
     let mobNoArr = [];
     let mobNos: string = "";
     let replaceHySp = this.sendSmsForm.value.mobile.replaceAll(/-|\s/g, "");
@@ -104,8 +106,12 @@ export class notificationsComponent implements OnInit {
         mobNoArr.push(array[i]);
       }
     }
-    mobNos = mobNoArr.join();
+    //mobNos = mobNoArr.join();
     //console.log(mobNos);
+    if (mobNoArr.length > 50) {
+      this.message = true;
+      return;
+    }
     // reset alerts on submit
     this.alertService.clear();
 
@@ -117,32 +123,38 @@ export class notificationsComponent implements OnInit {
 
     this.loading = true;
     let msgString = `Dear Health Seeker. Here is a New-Note from your ${hName}. ${dep}${this.templateId}. Share to Care.! - Weisermanner`;
-    let smsUrl = `http://185.136.166.131/domestic/sendsms/bulksms.php?username=joykj&password=joykj@1&type=TEXT&sender=WEISER&mobile=${mobNos}&message=${msgString}&entityId=1601335161674716856&templateId=1607100000000206161`;
+    //let smsUrl = `http://185.136.166.131/domestic/sendsms/bulksms.php?username=joykj&password=joykj@1&type=TEXT&sender=WEISER&mobile=${mobNos}&message=${msgString}&entityId=1601335161674716856&templateId=1607100000000206161`;
     this.alertService.success("SMS sent successfully", true);
     this.loading = false;
     this.submitted = false;
     this.sendSmsForm.reset();
-    $.ajax({
-      type: "GET",
-      url: smsUrl,
-      crossDomain: true,
-      dataType: "jsonp",
-      jsonpCallback: "callback",
-      success: function () {
-        //console.log(JSON.stringify(data));
-        this.alertService.success("SMS sent successfully", true);
-        this.loading = false;
-        this.submitted = false;
-        this.sendSmsForm.reset();
-        $("#closenote").click();
-      },
-      error: function (xhr, status) {
-        //this.alertService.error(status);
-        this.loading = false;
-        //this.sendSmsForm.reset();
-        $("#closenote").click();
-      },
-    });
+    let payload = {
+      From: "WEISER",
+      To: mobNoArr,
+      Body: msgString,
+      dltentityid: "1601335161674716856",
+      dlttemplateid: "1607100000000206161",
+    };
+    this.sendSMSafterBooking(payload);
+  }
+
+  sendSMSafterBooking(payload: any) {
+    this.userService
+      .sendSms(payload)
+      .pipe(first())
+      .subscribe(
+        (data: any) => {
+          this.alertService.success("SMS sent successfully", true);
+          this.loading = false;
+          this.submitted = false;
+          this.sendSmsForm.reset();
+          $("#closenote").click();
+        },
+        (error) => {
+          this.alertService.error(error, true);
+          $("#closenote").click();
+        }
+      );
   }
   onFileChange(ev) {
     this.alertService.clear();
@@ -215,5 +227,6 @@ export class notificationsComponent implements OnInit {
   formreset() {
     this.sendSmsForm.controls.mobile.setValue("");
     this.submitted = false;
+    this.message = false;
   }
 }

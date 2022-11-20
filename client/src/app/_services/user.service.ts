@@ -9,6 +9,10 @@ export class UserService {
 
   //notifications
 
+  sendSms(data: any) {
+    return this.http.post(`${environment.apiUrl}/performance/sendSMS`, data);
+  }
+
   createNotifications(payload) {
     return this.http.post(
       `${environment.apiUrl}/notifications/create`,
