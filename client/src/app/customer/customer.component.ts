@@ -11,6 +11,7 @@ import { HttpParams, HttpClient, HttpHeaders } from "@angular/common/http";
 import { AlertService, sharedDataService, UserService } from "@/_services";
 import * as XLSX from "xlsx";
 import * as $ from "jquery";
+import { forkJoin } from "rxjs";
 @Component({ templateUrl: "customer.component.html" })
 export class customerComponent implements OnInit {
   registerForm: FormGroup;
@@ -115,33 +116,46 @@ export class customerComponent implements OnInit {
     this.loading = false;
     this.submitted = false;
     this.registerForm.reset();
-    let payload = {
-      From: "WEISER",
-      To: mobNoArr,
-      Body: msgString,
-      dltentityid: "1601335161674716856",
-      dlttemplateid: "1607100000000125850",
-    };
-    this.sendSMSafterBooking(payload);
+    let payload = [];
+
+    let mobNoArrLength = mobNoArr.length;
+    let arrLength = mobNoArr.length - 1;
+    for (let i = 0; i < mobNoArrLength; i++) {
+      payload.push({
+        From: "WEISER",
+        To: mobNoArr[i],
+        Body: msgString,
+        dltentityid: "1601335161674716856",
+        dlttemplateid: "1607100000000125850",
+      });
+      if (i == arrLength) {
+        this.sendSMSafterBooking(payload);
+      }
+    }
   }
   sendSMSafterBooking(payload: any) {
-    this.userService
-      .sendSms(payload)
-      .pipe(first())
-      .subscribe(
-        (data: any) => {
-          //console.log(this.bookedTimeslot);
-          this.alertService.success("SMS sent successfully", true);
-          this.loading = false;
-          this.submitted = false;
-          this.registerForm.reset();
-        },
-        (error) => {
-          this.alertService.error(error, true);
-          this.loading = false;
-        }
-      );
+    const newUsersProps = forkJoin(
+      payload.map((user) => this.userService.sendSms(user))
+    ).subscribe();
   }
+  // sendSMSafterBooking(payload: any) {
+  //   this.userService
+  //     .sendSms(payload)
+  //     .pipe(first())
+  //     .subscribe(
+  //       (data: any) => {
+  //         //console.log(this.bookedTimeslot);
+  //         this.alertService.success("SMS sent successfully", true);
+  //         this.loading = false;
+  //         this.submitted = false;
+  //         this.registerForm.reset();
+  //       },
+  //       (error) => {
+  //         this.alertService.error(error, true);
+  //         this.loading = false;
+  //       }
+  //     );
+  // }
   onFileChange(ev) {
     this.alertService.clear();
     let phonenos = [];

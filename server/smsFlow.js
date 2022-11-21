@@ -1,6 +1,5 @@
 const axios = require("axios");
 module.exports.sendSMS = async function (obj) {
-  console.log(obj);
   let key = "c8799b6ce5a546d65f9af7fe82ae42ce626ae8bdaf12c994";
   let token = "d8feca523bd8edbef6b22c146a32deb9512a003436eaf59d";
   let domain = "@api.exotel.in";
@@ -16,10 +15,11 @@ module.exports.sendSMS = async function (obj) {
       url,
       formUrlEncoded({
         From: obj.From,
-        To: 9980568567,
+        To: obj.To,
         Body: obj.Body,
-        dltentityid: parseInt(obj.dltentityid),
-        dlttemplateid: parseInt(obj.dlttemplateid),
+        DltEntityId: obj.dltentityid,
+        DltTemplateId: obj.dlttemplateid,
+        SmsType: "transactional_opt_in",
       }),
       {
         withCredentials: true,

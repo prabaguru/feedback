@@ -16,6 +16,7 @@ import {
 } from "@/_services";
 import * as XLSX from "xlsx";
 import * as $ from "jquery";
+import { forkJoin } from "rxjs";
 @Component({ templateUrl: "notifications.component.html" })
 export class notificationsComponent implements OnInit {
   sendSmsForm: FormGroup;
@@ -128,34 +129,46 @@ export class notificationsComponent implements OnInit {
     this.loading = false;
     this.submitted = false;
     this.sendSmsForm.reset();
-    let payload = {
-      From: "WEISER",
-      To: mobNoArr,
-      Body: msgString,
-      dltentityid: "1601335161674716856",
-      dlttemplateid: "1607100000000206161",
-    };
-    this.sendSMSafterBooking(payload);
-  }
+    let payload = [];
 
-  sendSMSafterBooking(payload: any) {
-    this.userService
-      .sendSms(payload)
-      .pipe(first())
-      .subscribe(
-        (data: any) => {
-          this.alertService.success("SMS sent successfully", true);
-          this.loading = false;
-          this.submitted = false;
-          this.sendSmsForm.reset();
-          $("#closenote").click();
-        },
-        (error) => {
-          this.alertService.error(error, true);
-          $("#closenote").click();
-        }
-      );
+    let mobNoArrLength = mobNoArr.length;
+    let arrLength = mobNoArr.length - 1;
+    for (let i = 0; i < mobNoArrLength; i++) {
+      payload.push({
+        From: "WEISER",
+        To: mobNoArr[i],
+        Body: msgString,
+        dltentityid: "1601335161674716856",
+        dlttemplateid: "1607100000000125850",
+      });
+      if (i == arrLength) {
+        this.sendSMSafterBooking(payload);
+      }
+    }
   }
+  sendSMSafterBooking(payload: any) {
+    const newUsersProps = forkJoin(
+      payload.map((user) => this.userService.sendSms(user))
+    ).subscribe();
+  }
+  // sendSMSafterBooking(payload: any) {
+  //   this.userService
+  //     .sendSms(payload)
+  //     .pipe(first())
+  //     .subscribe(
+  //       (data: any) => {
+  //         this.alertService.success("SMS sent successfully", true);
+  //         this.loading = false;
+  //         this.submitted = false;
+  //         this.sendSmsForm.reset();
+  //         $("#closenote").click();
+  //       },
+  //       (error) => {
+  //         this.alertService.error(error, true);
+  //         $("#closenote").click();
+  //       }
+  //     );
+  // }
   onFileChange(ev) {
     this.alertService.clear();
     let phonenos = [];
