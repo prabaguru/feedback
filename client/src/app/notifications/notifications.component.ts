@@ -109,7 +109,7 @@ export class notificationsComponent implements OnInit {
     }
     //mobNos = mobNoArr.join();
     //console.log(mobNos);
-    if (mobNoArr.length > 50) {
+    if (mobNoArr.length > 100) {
       this.message = true;
       return;
     }
@@ -139,7 +139,7 @@ export class notificationsComponent implements OnInit {
         To: mobNoArr[i],
         Body: msgString,
         dltentityid: "1601335161674716856",
-        dlttemplateid: "1607100000000125850",
+        dlttemplateid: "1607100000000206161",
       });
       if (i == arrLength) {
         this.sendSMSafterBooking(payload);
@@ -150,6 +150,7 @@ export class notificationsComponent implements OnInit {
     const newUsersProps = forkJoin(
       payload.map((user) => this.userService.sendSms(user))
     ).subscribe();
+    $("#closenote").click();
   }
   // sendSMSafterBooking(payload: any) {
   //   this.userService

@@ -84,9 +84,9 @@ export class customerComponent implements OnInit {
       }
     }
     //mobNos = mobNoArr.join();
-    if (mobNoArr.length > 50) {
+    if (mobNoArr.length > 100) {
       this.alertService.error(
-        "Mobile numbers exceeded 50. Maximum numbers can be 50",
+        "Mobile numbers exceeded 100. Maximum numbers can be 100",
         true
       );
       return;
